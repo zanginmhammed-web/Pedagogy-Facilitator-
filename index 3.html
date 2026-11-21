@@ -1,0 +1,1433 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>پرسیارە کراوەکان و گفتوگۆی بەڵگەدار</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@500;700&family=Noto+Sans+Arabic:wght@400;500;700&display=swap">
+<style>
+/* Layout concept: Google-Sites-style course. Sticky top bar, page tree on the right (RTL), one reading column.
+   Signature elements: chat-bubble classroom dialogues and colour tags for Claim / Evidence / Reasoning / Rebuttal. */
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --bg:#F1F5F6; --surface:#FFFFFF; --surface2:#E8EFF1; --ink:#12242B; --muted:#4A5F68; --line:#D2DDE1;
+  --brand:#0F5C63; --brand-ink:#FFFFFF; --brand-soft:#DCEEF0;
+  --hero-bg:#0F5C63; --hero-ink:#FFFFFF;
+  --good:#1B7F4F; --good-bg:#DFF1E7; --bad:#B3342B; --bad-bg:#F8E2DF; --warn:#7F5500; --warn-bg:#FAEFD3;
+  --claim:#2A63C4; --evid:#9A6200; --reason:#6C48B8; --rebut:#B0365A;
+  --f-head:'Noto Kufi Arabic','Noto Sans Arabic',Tahoma,Arial,sans-serif;
+  --f-body:'Noto Sans Arabic',Tahoma,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E181D; --surface:#15242B; --surface2:#1C3039; --ink:#E4EEF1; --muted:#9DB2BA; --line:#2A404A;
+    --brand:#4DB5BE; --brand-ink:#08262A; --brand-soft:#173941;
+    --hero-bg:#123A41; --hero-ink:#E4EEF1;
+    --good:#5BCB92; --good-bg:#123325; --bad:#F08A80; --bad-bg:#3A1A18; --warn:#E8B75A; --warn-bg:#3A2D10;
+    --claim:#7FA8F0; --evid:#E0AA4F; --reason:#B79AF0; --rebut:#F08BAA;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E181D; --surface:#15242B; --surface2:#1C3039; --ink:#E4EEF1; --muted:#9DB2BA; --line:#2A404A;
+  --brand:#4DB5BE; --brand-ink:#08262A; --brand-soft:#173941;
+  --hero-bg:#123A41; --hero-ink:#E4EEF1;
+  --good:#5BCB92; --good-bg:#123325; --bad:#F08A80; --bad-bg:#3A1A18; --warn:#E8B75A; --warn-bg:#3A2D10;
+  --claim:#7FA8F0; --evid:#E0AA4F; --reason:#B79AF0; --rebut:#F08BAA;
+  color-scheme:dark;
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.95}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.gut{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--brand)}
+button{font-family:inherit}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+
+/* top bar */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.top-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:12px;min-height:60px;padding-block:8px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);min-width:0;flex:1}
+.code{font:700 12px/1.7 var(--f-head);color:var(--brand);border:1.5px solid var(--brand);border-radius:6px;padding:0 7px;flex:none;direction:ltr}
+.bt{font:700 16px/1.5 var(--f-head);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meter{display:flex;align-items:center;gap:8px;flex:none;font:700 13px var(--f-head);color:var(--muted)}
+.meter .bar{width:96px;height:8px;background:var(--surface2);border-radius:9px;overflow:hidden}
+.meter .bar i{display:block;height:100%;width:0;background:var(--brand);transition:width .3s}
+.icon-btn{display:none;place-items:center;width:42px;height:42px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;flex:none}
+
+/* shell + nav */
+.shell{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:290px minmax(0,1fr);gap:32px;align-items:start;padding-block:28px 64px}
+#nav{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px);max-height:calc(100vh - 100px);overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:8px 10px 12px}
+#nav h3{font:700 12px/1.6 var(--f-head);letter-spacing:.04em;color:var(--muted);margin:14px 10px 4px}
+#nav a{display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:9px;color:var(--ink);text-decoration:none;font-size:15px;line-height:1.6}
+#nav a:hover{background:var(--surface2)}
+#nav a[aria-current="page"]{background:var(--brand-soft);color:var(--brand);font-weight:700}
+#nav .st{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--line);flex:none;display:grid;place-items:center;font-size:11px;line-height:1;color:#fff}
+#nav a.done .st{background:var(--good);border-color:var(--good)}
+#nav a.done .st::after{content:"✓"}
+#main{min-width:0}
+
+/* pages */
+.page{display:none;max-width:780px}
+.page.on{display:flex;flex-direction:column;gap:16px}
+.page h1{font:700 clamp(25px,4.2vw,34px)/1.6 var(--f-head);text-wrap:balance;margin:0}
+.page h2{font:700 clamp(21px,3vw,25px)/1.6 var(--f-head);text-wrap:balance;margin:18px 0 0;padding-top:18px;border-top:1px solid var(--line)}
+.page h3{font:700 19px/1.7 var(--f-head);margin:8px 0 0}
+.page p{margin:0}
+.page ul,.page ol{margin:0;padding-inline-start:1.4em;display:flex;flex-direction:column;gap:6px}
+.en{direction:ltr;text-align:start;unicode-bidi:isolate}
+.lead{font-size:19px;color:var(--muted)}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--muted);font-size:15px}
+.chip{display:inline-block;font:700 13px/1.8 var(--f-head);padding:0 12px;border-radius:99px;background:var(--brand-soft);color:var(--brand);align-self:flex-start}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:var(--hero-bg);color:var(--hero-ink);border-radius:18px;padding:34px 28px;display:flex;flex-direction:column;gap:12px}
+.hero::after{content:"؟";position:absolute;inset-inline-start:-6px;bottom:-70px;font:700 280px/1 var(--f-head);opacity:.09;pointer-events:none}
+.hero h1{color:inherit;font-size:clamp(27px,5vw,40px)}
+.hero p{max-width:34em;position:relative}
+.hero .chip{background:rgba(255,255,255,.16);color:inherit}
+.row{display:flex;flex-wrap:wrap;gap:10px;position:relative}
+
+/* buttons */
+.btn{display:inline-block;font:700 16px/1.6 var(--f-head);padding:9px 20px;border-radius:10px;border:1.5px solid var(--brand);cursor:pointer;background:var(--brand);color:var(--brand-ink);text-decoration:none}
+.btn:hover{filter:brightness(1.08)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--brand)}
+.hero .btn{background:#fff;color:#0F5C63;border-color:#fff}
+.hero .btn.ghost{background:transparent;color:inherit;border-color:rgba(255,255,255,.7)}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.tbl table{border-collapse:collapse;width:100%;min-width:520px;font-size:16px;line-height:1.8}
+.tbl th{background:var(--surface2);font:700 14px/1.7 var(--f-head);text-align:start}
+.tbl th,.tbl td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;text-align:start}
+.tbl tr:last-child td{border-bottom:0}
+.tbl td:first-child{font-weight:700}
+
+/* callouts */
+.note{border-radius:12px;padding:14px 16px;background:var(--brand-soft);display:flex;flex-direction:column;gap:6px}
+.note.imp{background:var(--warn-bg)}
+.note .nt{font:700 14px/1.7 var(--f-head);color:var(--brand)}
+.note.imp .nt{color:var(--warn)}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.box h3{margin:0}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.cards a{display:flex;flex-direction:column;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;text-decoration:none;color:var(--ink);line-height:1.7}
+.cards a:hover{border-color:var(--brand)}
+.cards b{font:700 16px/1.6 var(--f-head);color:var(--brand)}
+.cards span{font-size:15px;color:var(--muted)}
+.goals{display:flex;flex-direction:column;gap:10px;list-style:none;padding:0!important}
+.goals li{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.goals b{font-family:var(--f-head);color:var(--brand)}
+
+/* dialogues */
+.dlg{display:flex;flex-direction:column;gap:10px}
+.msg{max-width:90%;padding:10px 14px;border-radius:14px;background:var(--surface);border:1px solid var(--line);line-height:1.85}
+.msg.t{align-self:flex-start;background:var(--brand-soft);border-color:transparent}
+.msg.s{align-self:flex-end}
+.msg .who{display:block;font:700 12px/1.8 var(--f-head);color:var(--muted)}
+.tag{display:inline-block;font:500 12px/1.8 var(--f-head);padding:0 9px;border-radius:99px;border:1.5px solid currentColor;margin-inline-start:6px;vertical-align:1px}
+.tag.c{color:var(--claim)}.tag.e{color:var(--evid)}.tag.r{color:var(--reason)}.tag.b{color:var(--rebut)}
+.cer{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.cer .p{border-radius:12px;padding:12px 14px;background:var(--surface);border:1.5px solid var(--line);display:flex;flex-direction:column;gap:2px;font-size:15px;line-height:1.7}
+.cer .p b{font:700 16px/1.6 var(--f-head)}
+.cer .p.c{border-color:var(--claim)}.cer .p.c b{color:var(--claim)}
+.cer .p.e{border-color:var(--evid)}.cer .p.e b{color:var(--evid)}
+.cer .p.r{border-color:var(--reason)}.cer .p.r b{color:var(--reason)}
+.cer.x{grid-template-columns:repeat(4,minmax(0,1fr))}
+.cer .p.w{border-color:var(--muted)}.cer .p.w b{color:var(--muted)}
+.cer .p.b{border-color:var(--rebut)}.cer .p.b b{color:var(--rebut)}
+.fig{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.fig .cap{font:700 15px/1.7 var(--f-head);color:var(--muted)}
+
+/* bloom pyramid */
+.pyr{display:flex;flex-direction:column;gap:6px;align-items:center}
+.pyr div{display:flex;justify-content:space-between;gap:10px;padding:6px 14px;border-radius:8px;color:#fff;font:500 14px/1.7 var(--f-head);background:var(--brand)}
+.pyr div.mix{background:#8A5A00}
+.pyr div.cl{background:#4B5F68}
+.pyr div span:last-child{opacity:.9;font-weight:700}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pyr div{color:#06161A}:root:not([data-theme="light"]) .pyr div.mix{background:#E0AA4F}:root:not([data-theme="light"]) .pyr div.cl{background:#9DB2BA}}
+:root[data-theme="dark"] .pyr div{color:#06161A}
+:root[data-theme="dark"] .pyr div.mix{background:#E0AA4F}
+:root[data-theme="dark"] .pyr div.cl{background:#9DB2BA}
+
+/* bar chart */
+.bars{display:flex;flex-direction:column;gap:10px}
+.bars .r{display:grid;grid-template-columns:120px minmax(0,1fr);gap:10px;align-items:center;font-size:15px}
+.bars .tr{position:relative;height:26px;background:linear-gradient(to left,transparent calc(33.33% - 1px),var(--line) calc(33.33% - 1px) 33.33%,transparent 33.33% calc(66.66% - 1px),var(--line) calc(66.66% - 1px) 66.66%,transparent 66.66%);border-bottom:1px solid var(--line)}
+.bars .tr i{position:absolute;inset-block:3px;inset-inline-start:0;background:var(--brand);border-radius:5px}
+.bars .tr em{position:absolute;inset-block:0;font:700 13px/26px var(--f-head);font-style:normal;padding-inline:8px;color:var(--ink)}
+.axis{display:grid;grid-template-columns:120px minmax(0,1fr);gap:10px;font-size:12px;color:var(--muted)}
+.axis div{display:flex;justify-content:space-between}
+
+/* quiz */
+.quiz{display:flex;flex-direction:column;gap:16px}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.qt{display:flex;gap:12px;align-items:flex-start}
+.qn{flex:none;width:30px;height:30px;border-radius:50%;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;font:700 14px/1 var(--f-head)}
+.qx{font-weight:500;flex:1;min-width:0}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:start;font:inherit;line-height:1.75;color:var(--ink);background:var(--surface);border:1.5px solid var(--line);border-radius:11px;padding:9px 12px;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--brand)}
+.opt .ol{flex:none;width:26px;height:26px;border-radius:7px;background:var(--surface2);display:grid;place-items:center;font:700 13px/1 var(--f-head);color:var(--muted)}
+.opt .ot{flex:1;min-width:0}
+.opt.sel{border-color:var(--brand);background:var(--brand-soft)}
+.opt.ok{border-color:var(--good);background:var(--good-bg)}
+.opt.ok .ol{background:var(--good);color:#fff}
+.opt.no{border-color:var(--bad);background:var(--bad-bg)}
+.opt.no .ol{background:var(--bad);color:#fff}
+.opt:disabled{cursor:default}
+.exp{padding:10px 14px;border-radius:10px;background:var(--surface2);font-size:16px;line-height:1.85}
+.qbar{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.qbar .cnt{color:var(--muted);font-size:15px}
+.score{border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;background:var(--brand-soft)}
+.score.pass{background:var(--good-bg)}
+.score.fail{background:var(--warn-bg)}
+.score .big{font:700 24px/1.6 var(--f-head)}
+.prev{font-size:15px;color:var(--muted)}
+
+/* simulation */
+.sim{border:1.5px solid var(--brand);border-radius:16px;background:var(--surface);overflow:hidden}
+.sim-h{background:var(--hero-bg);color:var(--hero-ink);padding:12px 18px;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center}
+.sim-h .badge{font:700 12px/1.8 var(--f-head);padding:0 10px;border-radius:99px;background:rgba(255,255,255,.18)}
+.sim-h strong{font:700 17px/1.6 var(--f-head)}
+.sim-b{padding:16px 18px 18px;display:flex;flex-direction:column;gap:14px}
+.sim-b p{margin:0}
+.hint{color:var(--muted);font-size:15px}
+.sim textarea,.ta{width:100%;min-height:92px;font:inherit;line-height:1.8;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:11px;padding:10px 12px;resize:vertical}
+.inp{width:100%;font:inherit;line-height:1.8;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:11px;padding:8px 12px}
+.sim label,.fld label{font:700 15px/1.7 var(--f-head)}
+.res{display:flex;flex-direction:column;gap:10px}
+.rr{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.rr.me{box-shadow:0 0 0 3px var(--brand-soft);border-color:var(--brand)}
+.rr .oh{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.ev{font:700 13px/1.8 var(--f-head);padding:0 10px;border-radius:99px}
+.ev.best{background:var(--good-bg);color:var(--good)}
+.ev.bad{background:var(--bad-bg);color:var(--bad)}
+.mine{font:700 12px/1.8 var(--f-head);color:var(--brand)}
+.rr small{display:block;font-size:14px;color:var(--muted);line-height:1.7}
+.yr{padding:10px 14px;border-radius:10px;background:var(--surface2)}
+
+/* classify / order */
+.cls{display:flex;flex-direction:column;gap:10px}
+.cr{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:10px 14px}
+.cr.ok{border-color:var(--good);background:var(--good-bg)}
+.cr.no{border-color:var(--bad);background:var(--bad-bg)}
+.cr .ct{flex:1 1 260px;min-width:0}
+.tg{display:flex;gap:6px}
+.tg button{font:700 14px/1.6 var(--f-head);padding:4px 14px;border-radius:9px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.tg button.on{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+.ord{display:flex;flex-direction:column;gap:8px;list-style:none;padding:0!important}
+.ord li{display:flex;gap:10px;align-items:center;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:8px 12px}
+.ord li.ok{border-color:var(--good);background:var(--good-bg)}
+.ord li.no{border-color:var(--bad);background:var(--bad-bg)}
+.ord .on{flex:1;min-width:0}
+.mv{display:flex;flex-direction:column;gap:2px}
+.mv button{width:34px;height:22px;border-radius:6px;border:1px solid var(--line);background:var(--surface2);color:var(--ink);cursor:pointer;line-height:1;font-size:11px}
+.pos{flex:none;width:26px;height:26px;border-radius:50%;background:var(--surface2);display:grid;place-items:center;font:700 13px/1 var(--f-head)}
+
+/* wait timer */
+.wt{display:flex;flex-direction:column;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.wt .trk{height:12px;border-radius:9px;background:var(--surface2);overflow:hidden}
+.wt .trk i{display:block;height:100%;width:0;background:var(--brand)}
+.wt .msgs{min-height:3.6em;font-weight:500}
+
+/* lesson timeline */
+.tl{display:flex;height:42px;border-radius:10px;overflow:hidden;border:1px solid var(--line);direction:rtl}
+.tl div{display:grid;place-items:center;color:#fff;font:700 13px/1.2 var(--f-head);min-width:0;padding:0 4px;text-align:center}
+.tl div:nth-child(1){background:#0F5C63}.tl div:nth-child(2){background:#2A63C4}.tl div:nth-child(3){background:#6C48B8}.tl div:nth-child(4){background:#8A4B00}.tl div:nth-child(5){background:#1B7F4F}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tl div{color:#06161A}:root:not([data-theme="light"]) .tl div:nth-child(1){background:#4DB5BE}:root:not([data-theme="light"]) .tl div:nth-child(2){background:#7FA8F0}:root:not([data-theme="light"]) .tl div:nth-child(3){background:#B79AF0}:root:not([data-theme="light"]) .tl div:nth-child(4){background:#E0AA4F}:root:not([data-theme="light"]) .tl div:nth-child(5){background:#5BCB92}}
+:root[data-theme="dark"] .tl div{color:#06161A}
+:root[data-theme="dark"] .tl div:nth-child(1){background:#4DB5BE}
+:root[data-theme="dark"] .tl div:nth-child(2){background:#7FA8F0}
+:root[data-theme="dark"] .tl div:nth-child(3){background:#B79AF0}
+:root[data-theme="dark"] .tl div:nth-child(4){background:#E0AA4F}
+:root[data-theme="dark"] .tl div:nth-child(5){background:#5BCB92}
+
+/* rubric self-assessment */
+.rub{display:flex;flex-direction:column;gap:14px}
+.rg{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.rg>b{font:700 16px/1.6 var(--f-head)}
+.ro{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.ro label{display:flex;gap:8px;align-items:flex-start;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;font-size:14.5px;line-height:1.65;cursor:pointer}
+.ro label:has(input:checked){border-color:var(--brand);background:var(--brand-soft)}
+.ro input{margin-top:6px;accent-color:var(--brand)}
+.fld{display:flex;flex-direction:column;gap:6px}
+.blk{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.blk>h3{margin:0}
+
+/* progress page */
+.pg{display:flex;flex-direction:column;gap:8px}
+.pr{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:space-between;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.stt{font:700 13px/1.8 var(--f-head);padding:0 10px;border-radius:99px;background:var(--surface2);color:var(--muted)}
+.stt.y{background:var(--good-bg);color:var(--good)}
+
+/* pager + refs */
+.pager{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
+.refs{list-style:none;padding:0!important;gap:10px!important}
+.refs li{direction:ltr;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px;font-size:15.5px;line-height:1.7}
+
+@media (max-width:899px){
+  .shell{grid-template-columns:minmax(0,1fr);padding-block:20px 56px}
+  .icon-btn{display:grid}
+  #nav{display:none;position:fixed;z-index:15;top:calc(env(safe-area-inset-top,0px) + 60px);left:0;right:0;bottom:0;max-height:none;border-radius:0;border-width:1px 0 0;padding:8px max(16px,env(safe-area-inset-right,0px)) calc(24px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+  body.nav-open #nav{display:block}
+  .meter .bar{width:56px}
+}
+@media (max-width:700px){
+  .cer,.cer.x{grid-template-columns:minmax(0,1fr)}
+  .ro{grid-template-columns:minmax(0,1fr)}
+  .msg{max-width:100%}
+  .bars .r,.axis{grid-template-columns:90px minmax(0,1fr)}
+  .hero{padding:26px 20px}
+  .bt{font-size:14px}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+<div id="app" dir="rtl" lang="ckb">
+<header class="top"><div class="top-in gut">
+  <button id="menuBtn" class="icon-btn" type="button" aria-label="لیستی کۆرس" aria-expanded="false" aria-controls="nav">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 5h14M3 10h14M3 15h14"/></svg>
+  </button>
+  <a class="brand" href="#home"><span class="code">PED-101</span><span class="bt">پرسیارە کراوەکان و گفتوگۆی بەڵگەدار</span></a>
+  <div class="meter" aria-label="پێشکەوتنی کۆرس"><div class="bar"><i id="barFill"></i></div><span id="pct">٠٪</span></div>
+</div></header>
+<div class="shell gut">
+<nav id="nav" aria-label="ناوەڕۆکی کۆرس"></nav>
+<main id="main">
+<!-- ============ HOME ============ -->
+<section class="page" id="p-home">
+  <div class="hero">
+    <span class="chip">کۆرسی خۆتێپەڕ (Self-Paced)</span>
+    <h1>پرسیارە کراوەکان و گفتوگۆی بەڵگەدار</h1>
+    <p class="en">Open-ended Questions and Argumentation</p>
+    <p>ڕێبەری زانستی و پڕاکتیکی بۆ پەرەپێدانی توانای مامۆستایان لە هەرێمی کوردستان</p>
+    <div class="row"><a class="btn" href="#intro">دەستپێبکە</a><a class="btn ghost" href="#pretest">تاقیکردنەوەی پێشوەختە</a></div>
+  </div>
+
+  <h2>ڕێگای تەواوکردن و سەرکەوتن</h2>
+  <p>ئەم کۆرسە خۆتێپەڕە (Self-Paced). سەرەتا بەشی «پێشەکی و ئامانجەکان» بخوێنەوە و تاقیکردنەوەی پێشوەختە بکە، پاشان ٤ مۆدیوڵەکە بخوێنەوە؛ لە کۆتایی هەر مۆدیوڵێکدا تاقیکردنەوەیەکی کورت هەیە. لە هەر مۆدیوڵێکدا هاوشێوەکردنی پۆل هەیە کە تێیدا وەک مامۆستا بڕیار دەدەیت: پێش ئەوەی ستوونەکانی «دەرەنجام» و «هەڵسەنگاندن» بخوێنیتەوە، بژاردەکەی خۆت دیاری بکە. ڤیدیۆی کورتی هەر مۆدیوڵ، کاتێک لە پلاتفۆرمەکەدا بەردەست بوو، پێش خوێندنەوەی مۆدیوڵەکە ببینە. لە کۆتاییدا ئەرکی کۆتایی و تاقیکردنەوەی کۆتایی ئەنجام بدە و بە تاقیکردنەوەی پێشوەختە بەراوردی بکە بۆ ئەوەی بزانیت ئاستی زانیارییەکانت چەندە گۆڕاوە.</p>
+
+  <h2>زانیاری کۆرس</h2>
+  <div class="tbl"><table>
+    <tr><td>گروپی ئامانج</td><td>مامۆستایانی قۆناغی بنەڕەتی و ئامادەیی (پۆلی ١ تا ١٢) لە هەرێمی کوردستان</td></tr>
+    <tr><td>پێداویستی پێشوو</td><td>ئەزموونی وانەوتنەوە؛ هیچ زانیارییەکی تایبەتی پێویست نییە</td></tr>
+    <tr><td>ماوەی خەمڵێندراو</td><td>نزیکەی ٨ کاتژمێر: هەر مۆدیوڵ ١.٥ تا ٢ کاتژمێر، لەگەڵ تاقیکردنەوەکان و ئەرکی کۆتایی</td></tr>
+    <tr><td>مەرجی تەواوکردن</td><td>تاقیکردنەوەی پێشوەختە • تاقیکردنەوەی کورتی هەر مۆدیوڵ (لانیکەم ٢ لە ٣) • ئەرکی کۆتایی (لانیکەم ١٥ لە ٢٠) • تاقیکردنەوەی کۆتایی (لانیکەم ٧ لە ١٠)</td></tr>
+  </table></div>
+
+  <h2>ناوەڕۆک</h2>
+  <div class="cards">
+    <a href="#intro"><b>پێشەکی و ئامانجەکان</b><span>هەشت ئامانجی سەرەکیی میتۆدەکە</span></a>
+    <a href="#pretest"><b>تاقیکردنەوەی پێشوەختە</b><span>١٠ پرسیار بۆ دیاریکردنی ئاستی ئێستات</span></a>
+    <a href="#m1"><b>مۆدیوڵی ١</b><span>پێناسە، بنەماکان و جۆرەکانی پرسیار</span></a>
+    <a href="#m2"><b>مۆدیوڵی ٢</b><span>گفتوگۆی بەڵگەدار، ڕۆڵی قوتابی و مۆدێلی Toulmin / CER</span></a>
+    <a href="#m3"><b>مۆدیوڵی ٣</b><span>ڕۆڵی مامۆستا، هەنگاوەکانی جێبەجێکردن و وانەی کردەیی</span></a>
+    <a href="#m4"><b>مۆدیوڵی ٤</b><span>ئاستەنگەکان، هەڵسەنگاندن و گونجاندن لەگەڵ هەرێمی کوردستان</span></a>
+    <a href="#final-test"><b>تاقیکردنەوەی کۆتایی</b><span>١٠ پرسیاری کردەیی</span></a>
+    <a href="#final-task"><b>ئەرکی کۆتایی</b><span>پلانی وانەی گفتوگۆی بەڵگەدار</span></a>
+  </div>
+</section>
+
+<!-- ============ INTRO ============ -->
+<section class="page" id="p-intro">
+  <h1>پێشەکی</h1>
+  <p>لە پەروەردەی نوێدا، ئەرکی مامۆستا تەنها گواستنەوەی زانیاری لە کتێبەوە بۆ مێشکی قوتابی نییە؛ بەڵکو دروستکردنی ژینگەیەکی فێرکارییە کە قوتابی تێیدا فێری بیرکردنەوە، پرسیارکردن، لێکدانەوە، بەڵگەهێنانەوە، بەراوردکردن و بڕیاردان دەبێت. قوتابییەک کە تەنها وەڵامی پرسیارە ئامادەکراوەکان دەزانێت، لەوانەیە لە تاقیکردنەوەیەکی ئاسایی سەرکەوتوو بێت؛ بەڵام ئەگەر نەیتوانێت لە بارودۆخێکی نوێدا زانیارییەکان بەکاربهێنێت، هێشتا پێویستی بە پەرەپێدانی توانای بیرکردنەوە هەیە.</p>
+  <p>لەم ڕوانگەیەوە، پرسیارە کراوەکان و گفتوگۆی بەڵگەدار دوو ئامرازی گرنگن بۆ گۆڕینی پۆل لە شوێنێکی تەنها بۆ وەرگرتنی زانیاری، بۆ ژینگەیەکی زیندووی بیرکردنەوە و بەشداریی هزری. لەم شێوازەدا، قوتابی تەنها گوێگر نییە؛ بەڵکو بەشدارێکی چالاکە لە دروستکردنی تێگەیشتن، پێشکەشکردنی بۆچوون و تاقیکردنەوەی بیرۆکەکان.</p>
+  <p>ئەم میتۆدە مامۆستا هان دەدات لە جیاتی ئەوەی هەموو وەڵامەکان خۆی بدات، پرسیاری بیرخەرەوە و هەڵسەنگێنەر ئاراستەی قوتابی بکات؛ پرسیارێک کە وەڵامەکەی تەنها بە «بەڵێ» یان «نەخێر» کورت نەکرێتەوە، بەڵکو قوتابی ناچار بکات هۆکار، بەڵگە و ڕوونکردنەوە بۆ بیرۆکەکەی بهێنێتەوە.</p>
+  <h2>ئامانجە سەرەکییەکانی میتۆدەکە</h2>
+  <ul class="goals">
+    <li><b>یەکەم: پەرەپێدانی بیرکردنەوەی ڕەخنەیی.</b> قوتابی فێر دەبێت زانیاری بەبێ پشکنین قبووڵ نەکات، سەرچاوە و بەڵگەکان بپشکنێت و لە نێوان بۆچوون و ڕاستی جیاوازی بکات.</li>
+    <li><b>دووەم: بەهێزکردنی توانای شیکردنەوە.</b> قوتابی فێر دەبێت کێشەیەک بەش بەش بکات، هۆکار و ئەنجامەکان بناسێت و پەیوەندی نێوانیان بدۆزێتەوە.</li>
+    <li><b>سێیەم: پەرەپێدانی توانای پاساوهێنانەوە.</b> قوتابی بتوانێت بۆچوونێک پێشکەش بکات و بە بەڵگە، نموونە و هۆکاری گونجاو پشتگیری بکات.</li>
+    <li><b>چوارەم: باشترکردنی توانای زمان و پەیوەندیکردن.</b> قوتابی فێر دەبێت بیرۆکەکانی بە ڕوونی دەرببڕێت، گوێ لە کەسانی دیکە بگرێت و بە شێوەیەکی ڕێکوپێک گفتوگۆ بکات.</li>
+    <li><b>پێنجەم: بەهێزکردنی متمانە بەخۆبوون.</b> کاتێک قوتابی دەزانێت بۆچوونی بە ڕێزەوە گوێی لێ دەگیرێت، ئازایەتی زیاتر دەدات بەشداری بکات و بیرۆکەکانی پێشکەش بکات.</li>
+    <li><b>شەشەم: پەرەپێدانی توانای چارەسەرکردنی کێشە.</b> قوتابی فێر دەبێت بۆ کێشەیەک چەند چارەسەرێک پێشنیار بکات، سوود و زیانیان هەڵبسەنگێنێت و گونجاوترین ڕێگا هەڵبژێرێت.</li>
+    <li><b>حەوتەم: پەرەپێدانی ڕێزگرتن لە جیاوازیی ڕوانگەکان.</b> قوتابی تێدەگات کە جیاوازیی بۆچوون بە مانای دوژمنایەتی نییە؛ بەڵکو دەتوانێت دەرفەتێک بێت بۆ فێربوون و فراوانکردنی تێگەیشتن.</li>
+    <li><b>هەشتەم: پەرەپێدانی سەربەخۆیی لە فێربوون.</b> قوتابی بە هێواشی فێر دەبێت پرسیارەکانی خۆی دروست بکات، زانیاری بگەڕێت و بۆچوونی خۆی هەڵبسەنگێنێت.</li>
+  </ul>
+</section>
+
+<!-- ============ PRETEST ============ -->
+<section class="page" id="p-pretest">
+  <h1>تاقیکردنەوەی پێشوەختە</h1>
+  <div class="meta"><span>١٠ پرسیار: هەر یەک ١ خاڵ</span><span>کات: نزیکەی ١٥ خولەک</span><span>ئاستی تێپەڕین: ٧ لە ١٠</span></div>
+  <div class="note"><span class="nt">پێش دەستپێکردن</span><span>ئامانج لەم تاقیکردنەوەیە دیاریکردنی ئاستی ئێستات و بەراوردکردنی پێشکەوتنە، بۆیە بەبێ سەیرکردنی سەرچاوە وەڵام بدەوە. کلیل و ڕوونکردنەوەکان دوای تەواوکردنی وەڵامەکانت پیشان دەدرێن. پرسیارەکانی تاقیکردنەوەی پێشوەختە و کۆتایی هەمان تەوەرەکان دەپێون (پرسیاری کراوە، بەڵگەهێنانەوە، پرسیاری بەدواداچوون، بەڕێوەبردنی پۆل و هەڵسەنگاندن) و لە ئاستێکی هاوشێوەن.</span></div>
+  <div id="quiz-pre"></div>
+</section>
+
+<!-- ============ MODULE 1 ============ -->
+<section class="page" id="p-m1">
+  <span class="chip">مۆدیوڵی ١</span>
+  <h1>پێناسە، بنەماکان و جۆرەکانی پرسیار</h1>
+  <div class="box">
+    <h3>ئامانجی فێربوونی مۆدیوڵ</h3>
+    <p>لە کۆتایی ئەم مۆدیوڵەدا دەتوانیت:</p>
+    <ul>
+      <li>جیاوازی نێوان پرسیاری کراوە و داخراو ڕوون بکەیتەوە و جۆرەکانی پرسیار بناسیتەوە.</li>
+      <li>پرسیارێکی داخراو بگۆڕیت بۆ پرسیاری کراوە.</li>
+      <li>بنەما تیۆرییەکان (بنیاتنەرانە، ڤیگۆتسکی، بلۆم، هەڵسەنگاندنی شێوەڕێژ) بە نموونەی پۆلەوە ببەستیتەوە.</li>
+    </ul>
+    <p class="hint">ماوەی پێشنیارکراو: نزیکەی ٢ کاتژمێر.</p>
+  </div>
+
+  <h2>١.١ پێناسەی میتۆدی پرسیاری کراوە و گفتوگۆی بەڵگەدار</h2>
+  <p><b>پرسیاری کراوە</b> ئەو جۆرە پرسیارەیە کە بوار بۆ زیاتر لە یەک وەڵام، لێکدانەوە یان ڕوانگە دەکاتەوە و قوتابی هان دەدات وەڵامەکەی بە بیرکردنەوە و شیکردنەوە بنیات بنێت. ئەم پرسیارانە بە شێوەیەک دادەڕێژرێن کە قوتابی ناچار بێت لە سنووری بیرکردنەوەی یادکردنەوە تێپەڕێت و بگاتە ئاستی بەکارهێنان، شیکردنەوە، هەڵسەنگاندن و دروستکردنی بیرۆکەی نوێ.</p>
+  <p><b>نموونە لە وانەی زانستدا:</b> پرسیاری «ئاو لە چ پلەیەکدا دەبێتە هەڵم؟» زۆرتر پرسیارێکی دیاریکراوە کە وەڵامێکی زانراوی هەیە. بەڵام پرسیاری «ئەگەر لە ناوچەیەکی وشکدا باران نەبارێت و سەرچاوەکانی ئاو کەم ببنەوە، ئەمە چ کاریگەرییەکی لەسەر ژیانی مرۆڤ و ئاژەڵ و ڕووەک دەبێت؟ چ چارەسەرێک پێشنیار دەکەیت؟» پرسیارێکی کراوەیە؛ چونکە قوتابی دەبێت زانیارییەکانی لەبارەی ئاو، ژینگە و پێداویستییەکانی ژیان بەیەکەوە ببەستێتەوە، چەند ئەگەرێکی جیاواز بخاتەڕوو و بۆچوونی خۆی بە هۆکار پشتڕاست بکاتەوە.</p>
+  <p><b>گفتوگۆی بەڵگەدار</b> پڕۆسەیەکی فێرکارییە کە تێیدا قوتابیان بۆچوون و بیرۆکەکانیان پێشکەش دەکەن، گوێ لە بیرۆکەی یەکتر دەگرن، پرسیار لە یەکتر دەکەن و هەوڵ دەدەن بە پشتبەستن بە بەڵگە، نموونە و هۆکاری گونجاو، بۆچوونی خۆیان ڕوون بکەنەوە یان لە پێداچوونەوەیەکی نوێدا بیگۆڕن.</p>
+  <div class="note imp"><span class="nt">گرنگە</span><span>هەر گفتوگۆیەک گفتوگۆی بەڵگەدار نییە. ئەگەر قوتابیان تەنها بۆچوونی خۆیان بڵێن، بەڵام هیچ هۆکار و بەڵگەیەک بۆ پشتگیری نەهێننەوە، ئەوا گفتوگۆکە هێشتا نەگەیشتووەتە ئاستی گفتوگۆی بەڵگەدار.</span></div>
+
+  <h2>١.٢ جیاوازی نێوان پرسیاری کراوە و داخراو</h2>
+  <div class="tbl"><table>
+    <tr><th>پرسیاری کراوە</th><th>پرسیاری داخراو</th></tr>
+    <tr><td>ڕەنگە چەند وەڵامێکی گونجاوی هەبێت</td><td>زۆرجار وەڵامێکی دیاریکراوی هەیە</td></tr>
+    <tr><td>شیکردنەوە و لێکدانەوە دەخوازێت</td><td>زیاتر یادکردنەوە و ناسینەوە دەخوازێت</td></tr>
+    <tr><td>پێویستی بە ڕوونکردنەوە و هۆکار هەیە</td><td>زۆرجار وەڵامەکە کورتە</td></tr>
+    <tr><td>هەڵسەنگاندن پێویستی بە سەرنجدان بە بیرکردنەوە و بەڵگەکان هەیە</td><td>مامۆستا زوو دەتوانێت وەڵامەکە هەڵبسەنگێنێت</td></tr>
+  </table></div>
+  <p>ئەمە بەو مانایە نییە کە پرسیارە داخراوەکان بێسوودن. هەردوو جۆرەکە لە وانەوتنەوەدا گرنگن؛ بەڵام مامۆستای شارەزا دەزانێت کەی پرسیاری داخراو بەکاربهێنێت بۆ دڵنیابوون لە تێگەیشتن، و کەی پرسیاری کراوە بەکاربهێنێت بۆ قووڵکردنەوەی بیرکردنەوە.</p>
+
+  <h2>١.٣ بنەما فەلسەفی و زانستییەکان</h2>
+  <div class="box">
+    <h3>فێرکاریی بنیاتنەرانە (Constructivism)</h3>
+    <p>قوتابی تەنها وەرگری زانیاری نییە؛ بەڵکو لە ڕێگەی ئەزموون، پرسیارکردن، تاقیکردنەوە، گفتوگۆ و پەیوەستکردنی زانیاریی نوێ بە زانیاریی پێشووی خۆیەوە، تێگەیشتنی خۆی دروست دەکات.</p>
+    <p><b>نموونە:</b> کاتێک مامۆستا دەپرسێت «بۆچی هەندێک شت لەسەر ئاو دەمێننەوە و هەندێکیان نقوم دەبن؟»، یەکێک دەڵێت «چونکە شتەکان سووکن»، قوتابییەکی دیکە دەڵێت «چونکە هەندێک ماددە چڕییان کەمترە». مامۆستا دەتوانێت ئەم بیرۆکانە بکاتە دەرفەتێک بۆ تاقیکردنەوە و تێگەیشتن لە چەمکی چڕی و هێزی هەڵگرتنی ئاو.</p>
+  </div>
+  <div class="box">
+    <h3>ڕوانگەی کۆمەڵایەتی-کولتووری (ڤیگۆتسکی)</h3>
+    <p>پەیوەندیی کۆمەڵایەتی و زمان ڕۆڵێکی گرنگیان لە گەشەی بیرکردنەوە و فێربوونی منداڵدا هەیە. قوتابی لە ڕێگەی گفتوگۆ لەگەڵ مامۆستا و هاوپۆلەکانی بیرۆکەی خۆی ڕوونتر دەکاتەوە. بەڵام ئەمە بە شێوەیەکی خۆکار ڕوونادات؛ پێویستی بە ڕێنمایی، پشتگیری و ڕێکخستنی مامۆستا هەیە.</p>
+  </div>
+  <div class="box">
+    <h3>پەروەردەی دیالۆگی (ڕۆبین ئەلێکساندەر)</h3>
+    <p>گفتوگۆ دەبێت ئامانجدار، بەردەوام، بنیاتنراو لەسەر بیرۆکەکانی پێشوو و بەشداریپێکەر بێت. قوتابی گوێ لە بیرۆکەی هاوپۆلەکەی دەگرێت، لەسەری بنیات دەنێت، پرسیاری لێ دەکات و ئەگەر پێویست بوو بۆچوونی خۆی دەگۆڕێت. گفتوگۆی پۆل دەبێت لە سنووری پرسیار و وەڵامی کورت تێپەڕێت.</p>
+  </div>
+  <div class="box">
+    <h3>هەرەمی بلۆم (Anderson &amp; Krathwohl, 2001)</h3>
+    <p>پرسیارەکان لە یادکردنەوە دەست پێ دەکەن و دەگەنە تێگەیشتن، بەکارهێنان، شیکردنەوە، هەڵسەنگاندن و دروستکردن. بۆیە مامۆستا نابێت هەموو پرسیارەکانی تەنها لەسەر «چییە؟» و «کەی ڕوویدا؟» بنیات بنێت؛ بەڵکو دەبێت «بۆچی؟»، «چۆن؟»، «ئەگەر... چی ڕوودەدات؟» و «بە چ بەڵگەیەک ئەم بۆچوونە پشتڕاست دەکەیتەوە؟»یش بەکاربهێنێت. توێژینەوە و ڕێنماییەکانی OECD جەخت دەکەنەوە کە پرسیارە باشەکان دەبێت هەلی شیکردنەوە، پێکهێنانەوەی بیرۆکە، پاساوهێنانەوە و خەیاڵکردنی ئەگەری جیاواز بۆ قوتابیان دروست بکەن.</p>
+  </div>
+
+  <div class="fig">
+    <div class="cap">خشتەی (١): گواستنەوەی ئاستی پرسیار لە هەرەمی بلۆمەوە بۆ بیرکردنەوەی بالا و بەڵگەی تاقیکردنەوەی مەیدانیی EEF لە ٧٦ قوتابخانە</div>
+    <div class="pyr" role="img" aria-label="هەرەمی بلۆم لە شەش ئاست">
+      <div style="width:42%"><span>٦. داهێنان (Create)</span><span>کراوە</span></div>
+      <div style="width:54%"><span>٥. هەڵسەنگاندن (Evaluate)</span><span>کراوە</span></div>
+      <div style="width:66%"><span>٤. شیکردنەوە (Analyze)</span><span>کراوە</span></div>
+      <div style="width:78%"><span>٣. بەکارهێنان (Apply)</span><span>کراوە</span></div>
+      <div class="mix" style="width:89%"><span>٢. تێگەیشتن (Understand)</span><span>تێکەڵ</span></div>
+      <div class="cl" style="width:100%"><span>١. یادکردنەوە (Remember)</span><span>داخراو</span></div>
+    </div>
+    <p class="hint">لە خوارەوە بۆ سەرەوە: لە بیردانەوەوە بۆ بیرکردنەوەی بالا. هەر ئاستێک جۆری پرسیارەکەی لە لای ڕاستە.</p>
+    <div class="cap">بەڵگەی زانستی: توێژینەوەی EEF (٧٦ قوتابخانە) — پەروەردەی دیالۆگی و گفتوگۆی بەڵگەدار پێشکەوتنی بەرچاوی بە بەراورد بە گرووپی ئاسایی تۆمار کردووە</div>
+    <div class="bars">
+      <div class="r"><span>زانست (Science)</span><div class="tr"><i style="width:66.66%"></i><em style="inset-inline-start:66.66%">+٢ مانگ</em></div></div>
+      <div class="r"><span>زمان و خوێندنەوە (Literacy)</span><div class="tr"><i style="width:66.66%"></i><em style="inset-inline-start:66.66%">+٢ مانگ</em></div></div>
+      <div class="r"><span>بیرکاری (Mathematics)</span><div class="tr"><i style="width:33.33%"></i><em style="inset-inline-start:33.33%">+١ مانگ</em></div></div>
+      <div class="axis"><span></span><div><span>٠</span><span>١</span><span>٢</span><span>٣ مانگ</span></div></div>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>هەڵسەنگاندنی شێوەڕێژ (Formative Assessment)</h3>
+    <p>مامۆستا لە ڕێگەی وەڵامەکانی قوتابییەوە تەنها نازانێت وەڵامەکە ڕاستە یان هەڵە؛ بەڵکو دەزانێت قوتابی چۆن بیر دەکاتەوە، لە کوێ تێگەیشتنی هەیە و لە کوێدا هەڵەی چەمکی یان کەلێنی زانیاری هەیە.</p>
+    <p><b>نموونە:</b> ئەگەر قوتابی بڵێت «هەموو شتێکی قورس دەنوقمێت»، مامۆستا لە ڕێگەی پرسیاری بەدواداچوونەوە دەزانێت قوتابی تەنها قورسایی تێگەیشتووە، یان جیاوازیی نێوان کێش و چڕی بۆ ڕوون بووەتەوە. ئەمە یارمەتی مامۆستا دەدات هەنگاوی دواتری وانەکە بە پێی پێویستیی ڕاستەقینەی قوتابی ڕێکبخات.</p>
+  </div>
+
+  <h2>١.٤ جۆرەکانی پرسیاری کراوە</h2>
+  <p>مامۆستا پێویستە جۆرەکانی پرسیار بناسێت؛ چونکە هەر جۆرێک ئامانجێکی فێرکاریی تایبەتی هەیە.</p>
+  <div class="tbl"><table>
+    <tr><th>جۆری پرسیار</th><th>ئامانجی فێرکاری</th><th>نموونە</th></tr>
+    <tr><td>ڕوونکردنەوە</td><td>قووڵکردنەوەی تێگەیشتن</td><td>دەتوانیت زیاتر ڕوونی بکەیتەوە؟</td></tr>
+    <tr><td>هۆکار</td><td>ناسینی هۆکارەکان</td><td>بۆچی ئەم ڕووداوە ڕوویدا؟</td></tr>
+    <tr><td>بەراورد</td><td>دۆزینەوەی هاوشێوەیی و جیاوازی</td><td>لە نێوان ئەم دوو ڕێگایەدا چ جیاوازییەک هەیە؟</td></tr>
+    <tr><td>پێشبینی</td><td>پەرەپێدانی بیرکردنەوەی ئەگەری</td><td>ئەگەر ئەم بارودۆخە بگۆڕێت، چی ڕوودەدات؟</td></tr>
+    <tr><td>بەڵگە</td><td>پشتڕاستکردنەوەی بۆچوون</td><td>چ بەڵگەیەکت هەیە بۆ ئەم قسەیە؟</td></tr>
+    <tr><td>هەڵسەنگاندن</td><td>پێوانەکردنی باشی و خراپی</td><td>کام چارەسەر گونجاوترە و بۆچی؟</td></tr>
+    <tr><td>دروستکردن</td><td>دروستکردنی بیرۆکەی نوێ</td><td>ئەگەر تۆ ئەم کێشەیەت چارەسەر کردبا، چی پێشنیار دەکرد؟</td></tr>
+  </table></div>
+  <p>مامۆستا نابێت تەنها بە پرسیاری سەرەتایی بوەستێت. زۆرجار پرسیاری دووەم و سێیەم گرنگترن؛ چونکە بیرکردنەوەی قوتابی قووڵتر دەکەنەوە. نموونە:</p>
+  <div class="dlg">
+    <div class="msg t"><span class="who">مامۆستا</span>بۆچی پێت وایە ئەم چارەسەرە باشە؟</div>
+    <div class="msg s"><span class="who">قوتابی</span>چونکە کاتمان بۆ دەپارێزێت.</div>
+    <div class="msg t"><span class="who">مامۆستا</span>چۆن دەتوانیت ئەمە بسەلمێنیت؟</div>
+    <div class="msg s"><span class="who">قوتابی</span>دەتوانین دوو ڕێگا تاقی بکەینەوە و کاتی بەکارهاتوو بەراورد بکەین.</div>
+    <div class="msg t"><span class="who">مامۆستا</span>ئەگەر ڕێگایەکی تر کاتێکی کەمتر بەڵام تێچووی زیاتر هەبێت، کامەیان هەڵدەبژێریت؟ بۆچی؟</div>
+  </div>
+  <p>لێرەدا مامۆستا تەنها وەڵام وەرناگرێت؛ بەڵکو قوتابی بە ئاراستەی بەڵگەهێنانەوە و بڕیاردانی هۆشیارانە دەبات.</p>
+
+  <h3>چالاکی: کراوە یان داخراو؟</h3>
+  <p>بۆ هەر پرسیارێک جۆرەکەی هەڵبژێرە. وەڵامەکە یەکسەر پشتڕاست دەکرێتەوە.</p>
+  <div id="act-classify"></div>
+
+  <h3>هاوشێوەکردنی ١: پۆلی ٥، زانست</h3>
+  <div id="sim-s1"></div>
+
+  <h2>تاقیکردنەوەی کورتی مۆدیوڵی ١</h2>
+  <div id="quiz-m1"></div>
+</section>
+
+<!-- ============ MODULE 2 ============ -->
+<section class="page" id="p-m2">
+  <span class="chip">مۆدیوڵی ٢</span>
+  <h1>گفتوگۆی بەڵگەدار و ڕۆڵی قوتابی</h1>
+  <div class="box">
+    <h3>ئامانجی فێربوونی مۆدیوڵ</h3>
+    <p>لە کۆتایی ئەم مۆدیوڵەدا دەتوانیت:</p>
+    <ul>
+      <li>گفتوگۆی بەڵگەدار لە گفتوگۆی ئاسایی جیا بکەیتەوە.</li>
+      <li>بۆچوونێک بە مۆدێلی CER یان Toulmin ڕێک بخەیت.</li>
+      <li>ڕێساکانی پۆل دابنێیت و ڕۆڵی قوتابی ڕوون بکەیتەوە.</li>
+    </ul>
+    <p class="hint">ماوەی پێشنیارکراو: نزیکەی ٢ کاتژمێر.</p>
+  </div>
+
+  <h2>٢.١ گفتوگۆی بەڵگەدار چییە؟</h2>
+  <p>گفتوگۆی بەڵگەدار ئەو گفتوگۆیەیە کە تێیدا قوتابی بۆچوونی خۆی بە هۆکار و بەڵگە پشتگیری دەکات، گوێ لە بۆچوونی هاوپۆلەکانی دەگرێت و ئەگەر بەڵگەی بەهێزتر هەبوو بۆچوونی خۆی دەگۆڕێت. ئەگەر قوتابی تەنها بۆچوونی خۆی بڵێت بێ هۆکار و بەڵگە، هێشتا نەگەیشتووەتە ئاستی گفتوگۆی بەڵگەدار.</p>
+
+  <h2>٢.٢ ڕێساکانی پۆل</h2>
+  <p>مامۆستا دەبێت فێری قوتابیان بکات کە ناکۆکی لە بۆچووندا نابێت ببێتە ناکۆکی لە کەسایەتیدا. قوتابی دەتوانێت لەگەڵ بیرۆکەی هاوپۆلەکەی هاوڕا نەبێت، بەڵام دەبێت ڕێزی بگرێت و هۆکاری جیاوازییەکە ڕوون بکاتەوە. باشە ئەم ڕێسایانە لە پۆلدا جێگیر بکرێن:</p>
+  <ol>
+    <li>قسەی یەکتر نابڕینەوە.</li>
+    <li>بە ڕێزەوە ناکۆکی دەربڕین.</li>
+    <li>بۆچوون بە بەڵگە پشتڕاست دەکەینەوە.</li>
+    <li>ڕێگە بە هەمووان دەدەین بەشداری بکەن.</li>
+    <li>ئەگەر بەڵگەی بەهێزتر هەبوو، ئامادەین بۆچوونمان بگۆڕین.</li>
+  </ol>
+
+  <h2>٢.٣ وتەی مامۆستا لە گفتوگۆدا</h2>
+  <p>نابێت لەم قۆناغەدا هەموو وەڵامێک خێرا بە «ڕاستە» یان «هەڵەیە» هەڵبسەنگێنرێت؛ چونکە ئەمە ڕەنگە قوتابیان لە بەشداریی ئازاد بترسێنێت. لە جیاتی ئەوە:</p>
+  <ul>
+    <li>سوپاس، کێ بۆچوونێکی دیکەی هەیە؟</li>
+    <li>ئایا کەسێک دەتوانێت ئەم بیرۆکەیە زیاتر ڕوون بکاتەوە؟</li>
+    <li>کێ لەگەڵ ئەم بۆچوونە هاوڕایە و بۆچی؟</li>
+    <li>ئایا بەڵگەیەکمان هەیە کە ئەم بیرۆکەیە پشتڕاست بکاتەوە؟</li>
+  </ul>
+
+  <h2>٢.٤ ڕۆڵی قوتابی</h2>
+  <p>قوتابی لەم شێوازەدا دەبێتە بەشدارێکی چالاک و بەرپرسیار لە فێربوونی خۆی. لە قوتابی چاوەڕێ دەکرێت:</p>
+  <ul>
+    <li>بە وردی گوێ لە پرسیار و بیرۆکەکانی هاوپۆلەکانی بگرێت.</li>
+    <li>پێش وەڵامدانەوە بیر بکاتەوە.</li>
+    <li>بۆچوونی خۆی بە ڕوونی دەرببڕێت.</li>
+    <li>بۆچوونی خۆی بە هۆکار و بەڵگە پشتڕاست بکاتەوە.</li>
+    <li>پرسیار لە هاوپۆلەکانی بکات.</li>
+    <li>جیاوازیی ڕوانگەکان بە ڕێزەوە وەربگرێت.</li>
+    <li>کاتێک بەڵگەی نوێ دەبینێت، ئامادە بێت بۆچوونی خۆی پێداچوونەوەی بۆ بکات.</li>
+    <li>لە کۆتاییدا بتوانێت ئەوە ڕوون بکاتەوە چی فێر بووە و چۆن گەیشتووەتە ئەو تێگەیشتنە.</li>
+  </ul>
+
+  <h2>٢.٥ ڕێکخستنی بەڵگەهێنانەوە: مۆدێلی CER و Toulmin</h2>
+  <p>بۆ ئەوەی «گفتوگۆی بەڵگەدار» لە ڕاستیدا بەڵگەدار بێت، قوتابی پێویستی بە قاڵبێک هەیە کە بیرکردنەوەکەی تێیدا ڕێک بخات. سادەترین قاڵب <span class="en">CER</span> ـە (<span class="en">McNeill &amp; Krajcik, 2012</span>)، و قاڵبی فراوانتر <span class="en">Toulmin</span> ـە (<span class="en">Toulmin, 2003</span>). پێشنیار دەکرێت CER بۆ پۆلەکانی ٥ تا ٨ و Toulmin بۆ پۆلە بەرزترەکان بەکاربهێنرێت.</p>
+  <div class="tbl"><table>
+    <tr><th>پێکهاتە</th><th>واتا</th><th>پرسیاری یارمەتیدەر</th><th>نموونە</th></tr>
+    <tr><td><span class="tag c">بۆچوون (Claim)</span></td><td>وەڵامی قوتابی بۆ پرسیارەکە</td><td>«بۆچوونت چییە؟»</td><td>«پارچە تەختەکە لەسەر ئاو دەمێنێتەوە.»</td></tr>
+    <tr><td><span class="tag e">بەڵگە (Evidence)</span></td><td>زانیاری، تێبینی یان داتای پشتگیریکەر</td><td>«چ شتێکت بینی یان زانی؟»</td><td>«لە تاقیکردنەوەکەماندا تەختەکە نقوم نەبوو، بزمارەکە نقوم بوو.»</td></tr>
+    <tr><td><span class="tag r">هۆکار (Reasoning)</span></td><td>ڕوونکردنەوەی بۆچی بەڵگەکە بۆچوونەکە پشتڕاست دەکاتەوە</td><td>«ئەم بەڵگەیە چۆن بۆچوونەکەت دەسەلمێنێت؟»</td><td>«چونکە چڕی تەختە لە چڕی ئاو کەمترە، نەک لەبەر سووکی.»</td></tr>
+  </table></div>
+  <p><span class="en">Toulmin</span> چوار پێکهاتەی زیاتر زیاد دەکات:</p>
+  <ul>
+    <li><b>پاساو (Warrant):</b> بنەما یان یاسایەکی گشتی کە بەڵگەکە بە بۆچوونەکەوە دەبەستێتەوە.</li>
+    <li><b>پشتگیری (Backing):</b> سەرچاوە یان زانیارییەک کە پاساوەکە بەهێز دەکات.</li>
+    <li><b>مەرج (Qualifier):</b> ئاستی دڵنیایی، وەک «لە زۆربەی حاڵەتەکاندا».</li>
+    <li><b>بەرپەرچدانەوە (Rebuttal):</b> ئەگەر یان مەرجێک کە بۆچوونەکە لاواز دەکات و وەڵامدانەوەی.</li>
+  </ul>
+  <div class="fig">
+    <div class="cap">هێڵکاری (٢): پێکهاتەی گفتوگۆی بەڵگەدار — مۆدێلی CER و فراوانکردنی بە Toulmin</div>
+    <div class="cer">
+      <div class="p c"><b>١. بۆچوون (Claim)</b>وەڵامی سەرەکی یان بۆچوونی قوتابی بەرامبەر بە پرسیارەکە.</div>
+      <div class="p e"><b>٢. بەڵگە (Evidence)</b>داتا، تێبینی زانستی یان ئەزموونێک کە بۆچوونەکە پشتگیری دەکات.</div>
+      <div class="p r"><b>٣. هۆکار (Reasoning)</b>ڕوونکردنەوەی زانستی کە بۆچی بەڵگەکە بۆچوونەکە دەسەلمێنێت.</div>
+    </div>
+    <div class="cap">پێکهاتە زیادەکانی مۆدێلی Toulmin (بۆ قۆناغی ئامادەیی)</div>
+    <div class="cer x">
+      <div class="p w"><b>پاساو</b>Warrant</div>
+      <div class="p w"><b>پشتگیری</b>Backing</div>
+      <div class="p w"><b>مەرجی دڵنیایی</b>Qualifier</div>
+      <div class="p b"><b>بەرپەرچدانەوە</b>Rebuttal</div>
+    </div>
+  </div>
+
+  <h3>ڕستەی یارمەتیدەر بۆ قوتابی</h3>
+  <div class="tbl"><table>
+    <tr><th>ئەرک</th><th>ڕستەی پێشنیارکراو</th></tr>
+    <tr><td>پێشکەشکردنی بۆچوون</td><td>«بۆچوونم ئەوەیە کە ...»</td></tr>
+    <tr><td>هێنانی بەڵگە</td><td>«بەڵگەکەم ئەوەیە کە ...» یان «لە تێبینیکردنەکەمدا بینیم کە ...»</td></tr>
+    <tr><td>باسکردنی هۆکار</td><td>«ئەمە بۆچوونەکەم پشتڕاست دەکاتەوە چونکە ...»</td></tr>
+    <tr><td>هاوڕابوون</td><td>«لەگەڵ [ناوی هاوپۆل] هاوڕام چونکە ... و دەمەوێت زیاد بکەم ...»</td></tr>
+    <tr><td>ناهاوڕابوون بە ڕێزەوە</td><td>«تێگەیشتم کە بۆچوونت ...، بەڵام بەڵگەیەکم هەیە کە ...»</td></tr>
+    <tr><td>داواکردنی ڕوونکردنەوە</td><td>«دەتوانیت ئەو بەڵگەیە زیاتر ڕوون بکەیتەوە؟»</td></tr>
+    <tr><td>گۆڕینی بۆچوون</td><td>«دوای گوێگرتن لە ...، بۆچوونەکەم گۆڕا چونکە ...»</td></tr>
+  </table></div>
+
+  <h3>نموونەی گفتوگۆی بەڵگەدار (خەیاڵی، بۆ ڕوونکردنەوە)</h3>
+  <div class="dlg">
+    <div class="msg t"><span class="who">مامۆستا</span>ئایا دروستکردنی کارگەی گەورە لە نزیک شار هەمیشە سوودی بۆ کۆمەڵگە هەیە؟</div>
+    <div class="msg s"><span class="who">قوتابی ١</span>بەڵێ، چونکە هەلی کار دروست دەکات. <span class="tag c">بۆچوون</span></div>
+    <div class="msg t"><span class="who">مامۆستا</span>چ بەڵگەیەکت هەیە؟</div>
+    <div class="msg s"><span class="who">قوتابی ١</span>لە گەڕەکەکەمان کارگەیەکی بلۆک هەیە و چەند کەسێک لە گەڕەکەکە تێیدا کار دەکەن. <span class="tag e">بەڵگە</span></div>
+    <div class="msg s"><span class="who">قوتابی ٢</span>لەگەڵتدا هاوڕام لە هەلی کار، بەڵام کارگە هەوا پیس دەکات و لە نزیک شار کاریگەری لەسەر تەندروستیی خەڵک دەبێت. <span class="tag b">هاوڕابوونی بەشێک + بەرپەرچدانەوە</span></div>
+    <div class="msg t"><span class="who">مامۆستا</span>کام لەم دوو لایەنە قورستر دەبینیت و بۆچی؟</div>
+    <div class="msg s"><span class="who">قوتابی ٢</span>ئەگەر کارگەکە فلتەر بەکاربهێنێت و لە شوێنێکی دوورتر دابنرێت، هەردوو سوودەکە دەپارێزرێت. <span class="tag r">چارەسەری مەرجدار</span></div>
+  </div>
+  <div class="note"><span class="nt">شیکردنەوە</span><span>مامۆستا بۆچوونەکان بە «بۆچی؟» و «چ بەڵگەیەک؟» قووڵ دەکاتەوە و قوتابی دووەم بە ڕێزەوە ناهاوڕایی دەردەبڕێت و چارەسەر پێشنیار دەکات.</span></div>
+
+  <h3>چالاکی: بۆچوونەکە بە CER تەواو بکە</h3>
+  <p>ئەم بۆچوونە بە CER تەواو بکە: <b>«پێویستە ئاو لە گوندەکان بپارێزرێت.»</b> وەڵامی خۆت بنووسە و پاشان لەگەڵ نموونەکە بەراوردی بکە.</p>
+  <div class="box">
+    <div class="fld"><label for="cer-e">بەڵگە (Evidence)</label><textarea id="cer-e" class="ta" placeholder="چ زانیارییەک یان تێبینییەک پشتگیری ئەم بۆچوونە دەکات؟"></textarea></div>
+    <div class="fld"><label for="cer-r">هۆکار (Reasoning)</label><textarea id="cer-r" class="ta" placeholder="بەڵگەکە چۆن بۆچوونەکە دەسەلمێنێت؟"></textarea></div>
+    <details>
+      <summary class="btn ghost" style="display:inline-block;cursor:pointer">نموونەی وەڵام پیشان بدە</summary>
+      <div class="dlg" style="margin-top:12px">
+        <div class="msg"><span class="tag c">بۆچوون</span> پێویستە ئاو لە گوندەکان بپارێزرێت.</div>
+        <div class="msg"><span class="tag e">بەڵگە</span> لە ناوچەیەکدا کە سەرچاوەی ئاو کەم بووەتەوە، کشتوکاڵ و ئاژەڵ کەمتر بەرهەم دەهێنن.</div>
+        <div class="msg"><span class="tag r">هۆکار</span> چونکە ژیانی خەڵکی گوند پشت بە ئاو دەبەستێت بۆ خواردنەوە و کشتوکاڵ، کەمبوونەوەی ئاو ژیانیان دەخاتە مەترسییەوە.</div>
+      </div>
+      <p class="hint">نموونە: دەکرێت وەڵامی تریش هەبێت.</p>
+    </details>
+  </div>
+
+  <h3>هاوشێوەکردنی ٢: پۆلی ٩، کۆمەڵایەتی</h3>
+  <div id="sim-s2"></div>
+
+  <h2>تاقیکردنەوەی کورتی مۆدیوڵی ٢</h2>
+  <div id="quiz-m2"></div>
+</section>
+<!-- ============ MODULE 3 ============ -->
+<section class="page" id="p-m3">
+  <span class="chip">مۆدیوڵی ٣</span>
+  <h1>ڕۆڵی مامۆستا، هەنگاوەکانی جێبەجێکردن و وانەی کردەیی</h1>
+  <div class="box">
+    <h3>ئامانجی فێربوونی مۆدیوڵ</h3>
+    <p>لە کۆتایی ئەم مۆدیوڵەدا دەتوانیت:</p>
+    <ul>
+      <li>حەوت هەنگاوەکەی جێبەجێکردن بە ڕیز بنووسیتەوە و پرسیاری بەدواداچوون دابڕێژیت.</li>
+      <li>وانەیەکی ٤٠ خولەکی گفتوگۆ پلان بکەیت.</li>
+      <li>هەڵە چەمکییەکان بەبێ شەرمەزارکردنی قوتابی بکەیتە دەرفەتی فێربوون.</li>
+    </ul>
+    <p class="hint">ماوەی پێشنیارکراو: نزیکەی ٢ کاتژمێر.</p>
+  </div>
+
+  <h2>٣.١ ڕۆڵی مامۆستا</h2>
+  <p>لەم میتۆدەدا، ڕۆڵی مامۆستا لە «بڵێرەوە و فێری بکە» دەگۆڕێت بۆ «ڕێنمایی بکە، پرسیار دروست بکە و بیرکردنەوە بەهێز بکە». ئەمە بەو مانایە نییە کە مامۆستا دەبێت دەست لە ڕوونکردنەوەی بابەت هەڵبگرێت؛ بەڵکو دەبێت ڕوونکردنەوەی ڕاستەوخۆ لەگەڵ پرسیار و گفتوگۆ بە شێوەیەکی هاوسەنگ بەکاربهێنێت. ئەرکە سەرەکییەکان:</p>
+  <ol>
+    <li><b>ئامادەکردنی پرسیاری ئامانجدار:</b> پرسیارەکان دەبێت پەیوەندییان بە ئامانجەکانی وانەوە هەبێت، نەک تەنها بۆ پڕکردنەوەی کاتی پۆل.</li>
+    <li><b>دروستکردنی ژینگەیەکی سەلامەتی دەروونی:</b> قوتابی هەست بکات دەتوانێت بیرۆکەی خۆی بڵێت، تەنانەت ئەگەر هەڵەش بێت.</li>
+    <li><b>دانانی کاتی بیرکردنەوە:</b> پاش پرسیارکردن دەبێت چەند چرکەیەک چاوەڕێ بکات، نەک خێرا خۆی وەڵامەکە بداتەوە.</li>
+    <li><b>گوێگرتنی چالاک:</b> دەبێت بزانێت قوتابی چی دەڵێت و چۆن بیر دەکاتەوە، نەک تەنها چاوەڕێی وەڵامی ڕاست بێت.</li>
+    <li><b>پرسیاری بەدواداچوون:</b> بە «بۆچی؟»، «چۆن؟»، «بە چ بەڵگەیەک؟» و «ئایا ڕوانگەیەکی دیکە هەیە؟» گفتوگۆ قووڵتر بکاتەوە.</li>
+    <li><b>بەڕێوەبردنی بەشداری:</b> دڵنیابێت تەنها قوتابییە بەهێزەکان قسە ناکەن و هەمووان دەرفەتی بەشدارییان هەیە.</li>
+    <li><b>پاراستنی ئاراستەی گفتوگۆ:</b> گفتوگۆکە لە ئامانجی وانە دوور نەکەوێتەوە.</li>
+    <li><b>ڕاستکردنەوەی تێگەیشتنی هەڵە:</b> بەبێ سووکایەتی و شەرمەزارکردنی قوتابی، هەڵە چەمکییەکان ڕوون بکاتەوە.</li>
+    <li><b>پەیوەستکردنی بیرۆکەکان:</b> یارمەتی قوتابی بدات بیرۆکەی خۆی بە بیرۆکەی هاوپۆلەکانی ببەستێتەوە.</li>
+    <li><b>کورتکردنەوە و ئەنجامگیری:</b> لە کۆتایی گفتوگۆدا خاڵە گرنگەکان ڕێکبخات و تێگەیشتنە هاوبەشەکان ڕوون بکاتەوە.</li>
+  </ol>
+
+  <h2>٣.٢ هەنگاوەکانی جێبەجێکردن لە پۆلدا</h2>
+  <div class="box">
+    <h3>هەنگاوی یەکەم: دیاریکردنی ئامانجی فێربوون</h3>
+    <p>پێش ئامادەکردنی پرسیارەکان، مامۆستا دەبێت بزانێت لە کۆتایی وانەدا قوتابی دەبێت چی بزانێت یان بتوانێت چی بکات. نموونە، بۆ بابەتی «پاراستنی ژینگە»: «قوتابی بتوانێت هۆکارەکانی پیسبوونی ژینگە شیکاتەوە، کاریگەرییەکانی ڕوون بکاتەوە و چارەسەری پراکتیکی پێشنیار بکات.»</p>
+  </div>
+  <div class="box">
+    <h3>هەنگاوی دووەم: ئامادەکردنی پرسیارەکان</h3>
+    <p>پرسیارەکان پێش وانە ئامادە بکرێن و لە ئاستی سادەوە دەست پێ بکەن و بە هێواشی بگەنە ئاستی قووڵتر. نموونە لە بابەتی ژینگە:</p>
+    <ul>
+      <li>چی دەزانن دەربارەی پیسبوونی ژینگە؟</li>
+      <li>بە بۆچوونی ئێوە، گرنگترین هۆکاری پیسبوونی هەوا چییە؟</li>
+      <li>چۆن پیسبوونی هەوا کاریگەری لەسەر تەندروستی مرۆڤ دەکات؟</li>
+      <li>ئەگەر لە گەڕەکەکەتاندا ژمارەی ئۆتۆمبێلەکان زۆر زیاد ببێت، چی ڕوودەدات؟</li>
+      <li>چ چارەسەرێک دەتوانن بۆ کەمکردنەوەی ئەم کێشەیە پێشنیار بکەن؟</li>
+      <li>چ بەڵگەیەک دەتوانێت پشتگیری لە پێشنیارەکەتان بکات؟</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h3>هەنگاوی سێیەم: پێشکەشکردنی پرسیار و دانانی کاتی بیرکردنەوە</h3>
+    <p>مامۆستا پرسیارەکە بە ڕوونی دەخوێنێتەوە، پاشان دەرفەت بە قوتابیان دەدات بیر بکەنەوە و یەکسەر قوتابییەک وەڵام نادات. دەتوانرێت قوتابیان بۆ ماوەیەکی کورت بیرۆکەکانیان لەسەر کاغەز بنووسن یان لەگەڵ هاوڕێیەک گفتوگۆ بکەن؛ ئەمە بەتایبەتی یارمەتی ئەو قوتابییانە دەدات کە پێش قسەکردن پێویستیان بە کات هەیە.</p>
+    <div class="note"><span class="nt">تێبینی لەسەر کاتی چاوەڕوانی (Wait Time)</span><span>لێکۆڵینەوەکانی Mary Budd Rowe نیشانیان داوە کە درێژکردنەوەی چاوەڕوانی دوای پرسیار بۆ نزیکەی سێ چرکە یان زیاتر دەتوانێت وەڵامەکان درێژتر و ئاستی بیرکردنەوە بەرزتر بکات (<span class="en">Rowe, 1986</span>). ئەگەر پۆل بێدەنگ بوو، پێش ئەوەی خۆت وەڵام بدەیتەوە، کەمێک چاوەڕێ بکە یان بۆ ماوەیەکی کورت لەگەڵ هاوڕێیەک گفتوگۆیان پێ بکە.</span></div>
+    <div id="act-wait"></div>
+  </div>
+  <div class="box">
+    <h3>هەنگاوی چوارەم: وەرگرتنی وەڵامە جیاوازەکان</h3>
+    <p>دەرفەت بدرێت بە قوتابیانی جیاواز؛ هەموو وەڵامێک بە خێرایی بە «ڕاستە» یان «هەڵەیە» هەڵنەسەنگێنرێت (وتەکانی بەشی ٢.٣).</p>
+  </div>
+  <div class="box">
+    <h3>هەنگاوی پێنجەم: قووڵکردنەوەی گفتوگۆ بە پرسیاری بەدواداچوون</h3>
+    <p>یەکێکە لە گرنگترین هەنگاوەکان. نموونە:</p>
+    <ul>
+      <li>بۆچی وای بیر دەکەیتەوە؟</li>
+      <li>چۆن گەیشتیتە ئەم ئەنجامە؟</li>
+      <li>ئەگەر بارودۆخەکە بگۆڕێت، ئایا هێشتا هەمان بۆچوونت دەبێت؟</li>
+      <li>ئایا دەتوانیت نموونەیەکی ڕاستەقینە بهێنیتەوە؟</li>
+      <li>کام بەڵگە لەوانەیە بۆچوونەکەت بگۆڕێت؟</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h3>هەنگاوی شەشەم: ڕێکخستنی گفتوگۆ و بەڕێوەبردنی جیاوازیی بۆچوون</h3>
+    <p>ڕێساکانی پۆل (بەشی ٢.٢) جێگیر بکرێن.</p>
+  </div>
+  <div class="box">
+    <h3>هەنگاوی حەوتەم: کۆکردنەوەی بیرۆکەکان و ئەنجامگیری</h3>
+    <p>مامۆستا بیرۆکە سەرەکییەکان کۆدەکاتەوە و پەیوەندییان بە ئامانجی وانەوە ڕوون دەکاتەوە. پرسیارەکانی کۆتایی:</p>
+    <ul>
+      <li>ئەمڕۆ چی فێر بووین؟</li>
+      <li>کام بیرۆکە گۆڕانی لە تێگەیشتنی ئێوەدا دروست کرد؟</li>
+      <li>کام بەڵگە زیاترین کاریگەریی لەسەر بۆچوونتان هەبوو؟</li>
+      <li>هێشتا چ پرسیارێکتان بێ وەڵام ماوە؟</li>
+    </ul>
+    <p>گفتوگۆ نابێت تەنها بە قسەکردن کۆتایی پێبێت، بەڵکو دەبێت بگاتە تێگەیشتن و ئەنجامێکی فێرکاری.</p>
+  </div>
+
+  <h3>چالاکی: ٧ هەنگاوەکە ڕیز بکەوە</h3>
+  <p>ئەم هەنگاوانە بە ڕیزی دروست ڕیز بکە (بە دوگمەکانی ▲ و ▼)، پاشان بپشکنە.</p>
+  <div id="act-order"></div>
+
+  <h3>هاوشێوەکردنی ٣: پۆلی ٦، چڕی و سەرئاوکەوتن</h3>
+  <div id="sim-s3"></div>
+
+  <h2>٣.٣ نموونەی وانەی تەواو: ئاو و پاراستنی سەرچاوە سروشتییەکان</h2>
+  <div class="meta"><span>بابەت: زانست</span><span>قۆناغ: بنەڕەتی</span><span>کات: ٤٠ خولەک</span></div>
+  <p><b>ئامانجی وانە:</b> قوتابی بتوانێت گرنگی ئاو ڕوون بکاتەوە، هۆکارەکانی بەفیڕۆدانی بناسێت و چارەسەری پاراستنی پێشنیار بکات.</p>
+  <div class="tl" role="img" aria-label="دابەشکردنی ٤٠ خولەک: ٥، ٥، ١٠، ١٥، ٥">
+    <div style="flex:5">٥ خ</div><div style="flex:5">٥ خ</div><div style="flex:10">١٠ خ</div><div style="flex:15">١٥ خ</div><div style="flex:5">٥ خ</div>
+  </div>
+  <div class="tbl"><table>
+    <tr><th>قۆناغ</th><th>کات</th><th>چالاکی</th></tr>
+    <tr><td>١. دەستپێکردن</td><td>٥ خ</td><td>مامۆستا وێنەی دوو گوند پیشان دەدات؛ یەکێکیان سەرچاوەی ئاوی پاکی هەیە و ئەوی دیکە تووشی وشکەساڵی بووە. پرسیار: ئەگەر گوندێک بۆ ماوەیەکی درێژ ئاوی نەبێت، ژیانی خەڵک چۆن دەگۆڕێت؟</td></tr>
+    <tr><td>٢. بیرکردنەوەی تاکەکەسی</td><td>٥ خ</td><td>هەر قوتابی بیرۆکەی خۆی دەنووسێت. مامۆستا هانی دەدات هەموو قوتابییەک پێشنیارێکی خۆی هەبێت.</td></tr>
+    <tr><td>٣. گفتوگۆی دووانە و گرووپ</td><td>١٠ خ</td><td>قوتابیان لە گرووپی بچووکدا بیرۆکەکانیان دەگۆڕنەوە و هەوڵ دەدەن سێ چارەسەر بۆ پاراستنی ئاو بدۆزنەوە.</td></tr>
+    <tr><td>٤. گفتوگۆی هاوبەشی پۆل</td><td>١٥ خ</td><td>هەر گرووپێک پێشنیارەکانی پێشکەش دەکات. مامۆستا دەپرسێت: بۆچی ئەم چارەسەرەتان هەڵبژارد؟ کام بەڵگە پشتگیری دەکات؟ ئایا لە گوند یان گەڕەکی ئێمەدا جێبەجێ دەکرێت؟ ئەگەر خەڵک هاوکاری نەکەن چی ڕوودەدات؟</td></tr>
+    <tr><td>٥. هەڵسەنگاندن و کۆتایی</td><td>٥ خ</td><td>هەر قوتابی بە یەک ڕستە دەڵێت گرنگترین شتی ئەمڕۆ چی فێر بووە، و بە یەک کردار دەڵێت چۆن دەتوانێت ئاو بپارێزێت.</td></tr>
+  </table></div>
+  <div class="note"><span class="nt">بەرهەمی چاوەڕوانکراو</span><span>قوتابی تەنها زانیارییەکانی لەبارەی ئاو دووبارە ناکاتەوە؛ بەڵکو کێشەیەک شیکردنەوە دەکات، چارەسەر پێشنیار دەکات و هۆکاری بۆچوونی خۆی دەهێنێتەوە.</span></div>
+
+  <h2>٣.٤ نموونەی پرسیاری کراوە بۆ بابەتە جیاوازەکان</h2>
+  <div class="tbl"><table>
+    <tr><th>بابەت</th><th>نموونە</th></tr>
+    <tr><td>بیرکاری</td><td>چەند ڕێگایەک هەیە بۆ چارەسەرکردنی ئەم کێشەیە؟ کام ڕێگات باشتر دەزانیت و بۆچی؟</td></tr>
+    <tr><td>زانست</td><td>ئەگەر ڕووەکەکان بۆ ماوەیەک ڕووناکی وەرنەگرن، چییان بەسەردێت؟</td></tr>
+    <tr><td>زمانی کوردی</td><td>ئەگەر تۆ نووسەری ئەم چیرۆکە بیت، کۆتاییەکەی چۆن دەگۆڕیت؟</td></tr>
+    <tr><td>زمانی ئینگلیزی</td><td class="en">What would you do differently if you were the main character, and why?</td></tr>
+    <tr><td>مێژوو</td><td>ئەگەر ئەم ڕووداوە بە شێوەیەکی دیکە ڕووی دابا، چ ئەنجامێکی هەبوو؟</td></tr>
+    <tr><td>جوگرافیا</td><td>چۆن شوێنی جوگرافی دەتوانێت کاریگەری لەسەر شێوازی ژیانی خەڵک هەبێت؟</td></tr>
+    <tr><td>کارامەیی و بەها</td><td>چۆن دەتوانین لە ژیانی ڕۆژانەماندا ئەم بەهایە جێبەجێ بکەین؟</td></tr>
+    <tr><td>پەروەردەی وەرزشی</td><td>ئەگەر لە یارییەکدا یاریزانێک ڕێساکان بشکێنێت، چۆن دەتوانرێت بە دادپەروەری مامەڵەی لەگەڵدا بکرێت؟</td></tr>
+  </table></div>
+
+  <h2>تاقیکردنەوەی کورتی مۆدیوڵی ٣</h2>
+  <div id="quiz-m3"></div>
+</section>
+
+<!-- ============ MODULE 4 ============ -->
+<section class="page" id="p-m4">
+  <span class="chip">مۆدیوڵی ٤</span>
+  <h1>ئاستەنگەکان، هەڵسەنگاندن و گونجاندن لەگەڵ هەرێمی کوردستان</h1>
+  <div class="box">
+    <h3>ئامانجی فێربوونی مۆدیوڵ</h3>
+    <p>لە کۆتایی ئەم مۆدیوڵەدا دەتوانیت:</p>
+    <ul>
+      <li>ئاستەنگەکانی جێبەجێکردن بناسیتەوە و چارەسەری گونجاو هەڵبژێریت (پۆلی قەرەباڵغ و فرەزمان).</li>
+      <li>پێوەری هەڵسەنگاندن بەکاربهێنیت.</li>
+      <li>ئەنجامی توێژینەوە بە ئاگاییەوە لێک بدەیتەوە.</li>
+    </ul>
+    <p class="hint">ماوەی پێشنیارکراو: نزیکەی ٢ کاتژمێر.</p>
+  </div>
+
+  <h2>٤.١ ئاستەنگەکان و هەڵە باوەکانی جێبەجێکردن</h2>
+  <p>هەرچەندە ئەم میتۆدە سوودی زۆری هەیە، بەڵام ئەگەر بە شێوەیەکی نادروست بەکاربهێنرێت، ڕەنگە نەگاتە ئامانجەکەی.</p>
+  <div class="tbl"><table>
+    <tr><th>ئاستەنگ</th><th>چارەسەر</th></tr>
+    <tr><td>١. بەشداریی سنووردار بە ژمارەیەکی کەم لە قوتابیان: لە هەندێک پۆلدا تەنها قوتابییە بەهێزەکان وەڵام دەدەنەوە و قوتابیانی دیکە بێدەنگ دەمێننەوە.</td><td>بەکارهێنانی شێوازی «بیر بکەرەوە، لەگەڵ هاوڕێکەت گفتوگۆ بکە، پاشان پێشکەشی بکە» (<span class="en">Think–Pair–Share</span>)، دیاریکردنی کاتی بیرکردنەوە (١ خولەک بیرکردنەوە، ٢ خولەک گفتوگۆ، پاشان پێشکەشکردنەوەی وەڵامەکان) و دابەشکردنی دەرفەتی بەشداری بەسەر هەموو قوتابیاندا.</td></tr>
+    <tr><td>٢. پرسیارە زۆر گشتی و ناڕوونەکان: پرسیارێکی وەک «دەربارەی ژینگە چی دەزانن؟» بوارێکی زۆر فراوان دەکاتەوە و قوتابی نازانێت لە کوێوە دەست پێ بکات.</td><td>پرسیارەکە بە ئامانجێکی دیاریکراو پەیوەست بکە؛ بۆ نموونە: چۆن بەفیڕۆدانی ئاو دەتوانێت کاریگەری لەسەر ژیانی گوندێک هەبێت؟</td></tr>
+    <tr><td>٣. گۆڕینی گفتوگۆ بۆ مشتومڕ: هەندێک قوتابی لە جیاتی بەڵگەهێنانەوە، هەوڵ دەدات تەنها بۆچوونی خۆی بسەپێنێت.</td><td>جیاوازی نێوان ناکۆکیی زانستی و مشتومڕی کەسی ڕوون بکرێتەوە. داوا لە قوتابیان بکرێت هەر بۆچوونێک بە هۆکار و بەڵگە پشتڕاست بکەنەوە.</td></tr>
+    <tr><td>٤. مامۆستا زوو وەڵامی ڕاست دەداتەوە: ئەگەر دوای هەر وەڵامێک خێرا بڵێت «ڕاستە» یان «هەڵەیە»، قوتابیان فێر دەبن تەنها وەڵامی چاوەڕوانکراوی مامۆستا بدۆزنەوە.</td><td>پێش هەڵسەنگاندنی وەڵامەکە، دەرفەت بدرێت بە قوتابیانی دیکە بۆ ڕوونکردنەوە، پشتگیری یان پێداچوونەوە.</td></tr>
+    <tr><td>٥. کەمیی کات: گفتوگۆی بەڵگەدار پێویستی بە کات هەیە و لە پۆلی قەرەباڵغدا ڕەنگە بەڕێوەبردنی قورس بێت.</td><td>مامۆستا تەنها چەند پرسیاری سەرەکی هەڵبژێرێت، کاتی دیاریکراو بۆ هەر قۆناغێک دابنێت و گفتوگۆکە لە ئامانجی وانە دوور نەخاتەوە.</td></tr>
+    <tr><td>٦. نەبوونی زانیاریی پێشووی پێویست: هەندێک پرسیاری قووڵ ئەگەر قوتابی زانیاریی بنەڕەتیی بابەتەکەی نەبێت، دەبێتە هۆی سەرلێشێواوی.</td><td>پێش پرسیاری قووڵ، زانیاریی بنەڕەتی و چەمکە سەرەکییەکان بە ڕوونی پێشکەش بکرێن.</td></tr>
+    <tr><td>٧. هەڵسەنگاندنی قوتابی بە پێی بۆچوونی کەسی: مامۆستا نابێت تەنها بەوەی قوتابی لەگەڵ بۆچوونی خۆی هاوڕایە، وەڵامەکەی باش هەڵبسەنگێنێت.</td><td>هەڵسەنگاندن دەبێت پشت بە کوالیتیی هۆکار، بەڵگە، ڕوونکردنەوە و توانای گوێگرتن ببەستێت، نەک هاوڕایی یان ناهاوڕایی لەگەڵ مامۆستا.</td></tr>
+  </table></div>
+
+  <h2>٤.٢ ڕێگاکانی هەڵسەنگاندنی کاریگەریی میتۆدەکە</h2>
+  <p>هەڵسەنگاندنی ئەم میتۆدە نابێت تەنها بە ژمارەی پرسیارەکان یان ژمارەی قوتابیانی وەڵامدەر بکرێت. پێویستە مامۆستا بزانێت ئایا کوالیتیی بیرکردنەوە و گفتوگۆی قوتابیان گۆڕانی بەسەردا هاتووە یان نا.</p>
+  <ul>
+    <li><b>کوالیتیی پرسیارەکانی مامۆستا:</b> ئایا پەیوەندییان بە ئامانجی وانەوە هەیە؟ ئایا قوتابیان هان دەدەن شیکردنەوە و ڕوونکردنەوە بکەن؟ ئایا پرسیاری بەدواداچوون بەکاردەهێنرێت؟ ئایا لە ئاستە جیاوازەکانی بیرکردنەوەدا ڕێکخراون؟</li>
+    <li><b>بەشداریی قوتابیان:</b> ئایا زۆربەی قوتابیان بەشداری دەکەن؟ ئایا گوێ لە یەکتر دەگرن؟ ئایا قوتابیانی بێدەنگیش دەرفەتی قسەکردنیان هەیە؟ ئایا گفتوگۆ لە نێوان خودی قوتابیاندا ڕوودەدات، یان هەموو قسەکان ئاراستەی مامۆستایە؟</li>
+    <li><b>کوالیتیی وەڵامەکان:</b> ئایا قوتابی دەتوانێت هۆکاری بۆچوونی خۆی ڕوون بکاتەوە؟ ئایا بەڵگە یان نموونە دەهێنێتەوە؟ ئایا دەتوانێت بیرۆکەی هاوپۆلەکەی هەڵبسەنگێنێت؟ ئایا دەتوانێت بەڵگەی نوێ وەربگرێت و بۆچوونی خۆی پێداچوونەوەی بۆ بکات؟</li>
+  </ul>
+
+  <h2>٤.٣ پێوەری هەڵسەنگاندنی مامۆستا</h2>
+  <div class="note imp"><span class="nt">تێبینی</span><span>ئەم پێوەرە پێشنیارێکی ڕاهێنانییە و نابێت بەبێ ڕاهێنانی چاودێران و یەکسانکردنی شێوازی بەکارهێنان، وەک پێوەرێکی فەرمیی هەڵسەنگاندنی مامۆستا بەکاربهێنرێت.</span></div>
+  <div id="rubric-table"></div>
+
+  <h2>٤.٤ گونجاندنی میتۆدەکە لەگەڵ سیستەمی پەروەردەی هەرێمی کوردستان</h2>
+  <p>بەکارهێنانی ئەم میتۆدە لە قوتابخانەکانی هەرێمی کوردستان دەبێت لەگەڵ بارودۆخی ڕاستەقینەی قوتابخانەکان، قۆناغەکانی خوێندن، ژمارەی قوتابیان، زمان و ناوەڕۆکی پەڕتووکەکان بگونجێنرێت.</p>
+  <div class="box">
+    <h3>بازنەی یەکەم و دووەم</h3>
+    <p>پرسیارەکان دەبێت سادە، ڕوون و پەیوەست بە ژیانی ڕۆژانەی منداڵ بن. نموونە:</p>
+    <ul>
+      <li>ئەگەر تۆ باخچەیەکت هەبێت، چۆن چاودێری لە ڕووەکەکان دەکەیت؟</li>
+      <li>بۆچی پێویستە دەستمان پێش خواردن بشۆین؟</li>
+      <li>ئەگەر هاوڕێکەت لە یارییەکدا بەشداری نەکرێت، تۆ چی دەکەیت؟</li>
+    </ul>
+    <p>لەو قۆناغەدا وێنە، شتە ڕاستەقینەکان، چیرۆک و یاری دەتوانن پرسیارەکان بۆ قوتابی زیاتر سەرنجڕاکێش بکەن.</p>
+  </div>
+  <div class="box">
+    <h3>بازنەی سێیەم و ئامادەیی</h3>
+    <p>پرسیارەکان قووڵتر دەبن و قوتابیان هان دەدرێن بەڵگە و سەرچاوە بەکاربهێنن. نموونە:</p>
+    <ul>
+      <li>ئایا پەرەپێدانی شارستانی هەمیشە سوودی بۆ ژینگە هەیە؟</li>
+      <li>چ پەیوەندییەک لە نێوان خوێندن و گەشەی ئابووریی کۆمەڵگەدا هەیە؟</li>
+      <li>کام سەرچاوەی زانیاری متمانەپێکراوترە و بۆچی؟</li>
+      <li>ئەگەر تۆ بەرپرسی پاراستنی ژینگە بیت، کام سێ بڕیارە یەکەمی دەدەیت؟</li>
+    </ul>
+  </div>
+  <div class="box">
+    <h3>پۆلە قەرەباڵغەکان</h3>
+    <p>لە قوتابخانەکاندا کە ژمارەی قوتابیان زۆرە، مامۆستا گفتوگۆ بە گرووپی بچووک ڕێکبخات، کاتی دیاریکراو بۆ بەشداری دابنێت و لە شێوازەکانی نووسینی وەڵام و کارتی پرسیار یارمەتی وەربگرێت.</p>
+  </div>
+  <div class="box">
+    <h3>ژینگەی فرەزمانی</h3>
+    <p>مامۆستا سەرنجی ئاستی زمانی قوتابی بدات. ئەگەر قوتابی بیرۆکەیەکی باشی هەبێت بەڵام توانای دەربڕینی زمانیی سنووردار بێت، نابێت ئەمە ببێتە هۆی پشتگوێخستنی بیرکردنەوەکەی. دەتوانرێت لە سەرەتادا دەرفەت بدرێت بیرۆکەکە بە زمانی بەهێزتری خۆی ڕوون بکاتەوە، پاشان مامۆستا یارمەتی بدات بیگوازێتەوە بۆ زمانی وانەکە.</p>
+  </div>
+  <div class="box">
+    <h3>پەیوەندی بە هەڵسەنگاندنە نێودەوڵەتییەکانەوە (PISA)</h3>
+    <p>ئەم میتۆدە دەتوانێت یارمەتی پەرەپێدانی ئەو تواناییانە بدات کە لە PISA گرنگن؛ بەتایبەتی تێگەیشتن لە دەق، شیکردنەوەی زانیاری، بەکارهێنانی بەڵگە و چارەسەرکردنی کێشە. بەڵام نابێت وەک ڕێگایەکی ئامادەکردنی قوتابی بۆ PISA تەنها سەیر بکرێت؛ بەڵکو بەشێکە لە کولتووری فێربوونێکی فراوانتر کە قوتابی تێیدا فێری بەکارهێنانی زانیاری لە بارودۆخی ڕاستەقینە دەبێت (بڕوانە: <span class="en">OECD, 2023</span>).</p>
+  </div>
+
+  <h3>هاوشێوەکردنی ٤: پۆلی ١٠، پۆلێکی قەرەباڵغی ٤٢ قوتابی و فرەزمان</h3>
+  <div id="sim-s4"></div>
+
+  <h2>٤.٥ سوود و کاریگەرییە پەروەردەییەکان</h2>
+  <ul>
+    <li><b>قووڵکردنەوەی تێگەیشتن:</b> قوتابی بەجێی یادکردنەوەی زانیاری، هۆکار و پەیوەندییەکان دەناسێت.</li>
+    <li><b>زیادکردنی بەشداری:</b> قوتابیان دەرفەتی زیاتر بۆ قسەکردن و پێشکەشکردنی بیرۆکەیان دەبێت.</li>
+    <li><b>باشترکردنی توانای زمان:</b> ڕاهێنان لە ڕوونکردنەوە، دەربڕین و بەڵگەهێنانەوەدا دەکەن.</li>
+    <li><b>پەرەپێدانی بیرکردنەوەی ڕەخنەیی:</b> فێر دەبن بۆچوونەکان بپشکنن و بەڵگەکان هەڵبسەنگێنن.</li>
+    <li><b>پەرەپێدانی هاوکاری:</b> فێر دەبن گوێ لە یەکتر بگرن و بیرۆکەکان بەیەکەوە پەیوەست بکەن.</li>
+    <li><b>زیادکردنی سەربەخۆیی:</b> فێر دەبن پرسیار دروست بکەن و بۆ وەڵامەکان بگەڕێن.</li>
+  </ul>
+
+  <h2>٤.٦ بەڵگەی توێژینەوە (EEF)</h2>
+  <p>ڕاپۆرتی دامەزراوەی EEF لەسەر پڕۆگرامێکی تایبەت بە <span class="en">Dialogic Teaching</span>، کە لە ٧٦ قوتابخانەدا تاقی کراوەتەوە، کاریگەرییەکی ئەرێنی لەسەر بەشداری و پێشکەوتنی قوتابیان لە ئینگلیزی و زانست و بیرکاری تۆمار کردووە. پێشکەوتنی ناوەندی بە نزیکەی دوو مانگ لە ئینگلیزی و زانست و یەک مانگ لە بیرکاری زیاتر بووە لە گرووپی بەراورد (<span class="en">Jay et al., 2017</span>).</p>
+  <div class="note imp"><span class="nt">بە ئاگاییەوە لێکی بدەرەوە</span><span>ئەم ئەنجامە پشتگیرییەکی گرنگە، بەڵام نابێت وەک بەڵێنێکی گشتی بۆ هەموو قوتابخانە و هەموو شێوازێکی گفتوگۆ لێک بدرێتەوە.</span></div>
+
+  <h2>تاقیکردنەوەی کورتی مۆدیوڵی ٤</h2>
+  <div id="quiz-m4"></div>
+</section>
+
+<!-- ============ WRAP-UP ============ -->
+<section class="page" id="p-wrapup">
+  <h1>کۆتایی و ئەنجامگیری</h1>
+  <p>پرسیارە کراوەکان و گفتوگۆی بەڵگەدار لە گرنگترین ئامرازەکانی پەرەپێدانی کولتووری بیرکردنەوەن لە پۆلدا. ئەم میتۆدە قوتابی لە شوێنی وەرگری زانیارییەوە دەگوازێتەوە بۆ شوێنی بەشداربووی چالاک لە پڕۆسەی فێربوون؛ فێری دەکات پرسیار بکات، شیکاری بکات، بۆچوون پێشکەش بکات، بەڵگە بهێنێتەوە و گوێ لە ڕوانگەی جیاواز بگرێت.</p>
+  <p>بەڵام سەرکەوتنی ئەم میتۆدە بە ژمارەی پرسیارەکان یان درێژیی گفتوگۆکە ناپێورێت؛ بەڵکو بە کوالیتیی بیرکردنەوە، ئاستی بەشداری و توانای قوتابی بۆ بەکارهێنانی زانیاری لە بارودۆخی نوێدا پێوانە دەکرێت. لە ئاستی سیستەمی پەروەردەی هەرێمی کوردستانیشدا، پەرەپێدانی ئەم توانایە دەتوانێت ببێتە بەشێک لە گۆڕانکارییەکی بنەڕەتی لە کولتووری وانەوتنەوە؛ گۆڕانکارییەک کە لە جیاتی تەوەرکردنی وانە لەسەر مامۆستا و وەڵامی ئامادە، قوتابی دەکاتە ناوەندی بیرکردنەوە و لێکۆڵینەوە.</p>
+  <div class="note"><span class="nt">پەیامی سەرەکی بۆ مامۆستا</span><span>مامۆستای سەرکەوتوو ئەوە نییە کە زۆرترین وەڵام دەداتەوە؛ بەڵکو ئەوەیە کە باشترین پرسیارەکان دروست دەکات و قوتابی فێر دەکات چۆن بە بیرکردنەوە و بەڵگە بگاتە وەڵام.</span></div>
+  <div class="row"><a class="btn" href="#final-test">بڕۆ بۆ تاقیکردنەوەی کۆتایی</a></div>
+</section>
+
+<!-- ============ FINAL TEST ============ -->
+<section class="page" id="p-final-test">
+  <h1>تاقیکردنەوەی کۆتایی</h1>
+  <div class="meta"><span>١٠ پرسیار: هەر یەک ١ خاڵ</span><span>کات: نزیکەی ١٥ خولەک</span><span>ئاستی تێپەڕین: ٧ لە ١٠</span></div>
+  <div class="note"><span class="nt">پێش دەستپێکردن</span><span>ئەم تاقیکردنەوەیە ئاستی کرداریتر هەیە (کەیس و بارودۆخی پۆل). کلیلەکە دوای تەواوکردنی وەڵامەکانت پیشان دەدرێت.</span></div>
+  <div id="quiz-fin"></div>
+  <div id="fin-gain"></div>
+</section>
+
+<!-- ============ FINAL TASK ============ -->
+<section class="page" id="p-final-task">
+  <h1>ئەرکی کۆتایی: پلانی وانەی گفتوگۆی بەڵگەدار</h1>
+  <p>ئەم ئەرکە لە دوای تاقیکردنەوەی کۆتایی ئەنجام بدە. ئامانج ئەوەیە ئەوەی لە ٤ مۆدیوڵەکەدا فێر بوویت لە وانەیەکی ڕاستەقینەی خۆتدا بەکاری بهێنیت. وەڵامەکانت لەم ئامێرەدا خۆکار دەپارێزرێن.</p>
+  <div id="task-form"></div>
+  <div class="note"><span class="nt">هەڵسەنگاندن</span><span>ئەرکەکە بە پێوەری ٤.٣ هەڵدەسەنگێنرێت، بە شێوەی پلان (نەک چاودێریی پۆل): ٥ پێوەر × ٤ خاڵ = ٢٠ خاڵ. دەتوانرێت دوو هاوکار بیخوێننەوە و بە هەمان پێوەر فیدباک بدەن.</span></div>
+  <h2>خۆهەڵسەنگاندن بە پێوەری ٤.٣</h2>
+  <p>پلانەکەت بخوێنەوە و بۆ هەر پێوەرێک ئەو ئاستە هەڵبژێرە کە لەگەڵ پلانەکەت دەگونجێت.</p>
+  <div id="rubric-self"></div>
+</section>
+
+<!-- ============ REFERENCES ============ -->
+<section class="page" id="p-refs">
+  <h1>سەرچاوە و پشتیوانیی زانستی</h1>
+  <ol class="refs">
+    <li>Alexander, R. (2020). <i>A Dialogic Teaching Companion</i>. Routledge.</li>
+    <li>Anderson, L. W., &amp; Krathwohl, D. R. (Eds.). (2001). <i>A Taxonomy for Learning, Teaching, and Assessing: A Revision of Bloom's Taxonomy of Educational Objectives</i>. Longman.</li>
+    <li>Black, P., &amp; Wiliam, D. (1998). Assessment and Classroom Learning. <i>Assessment in Education: Principles, Policy &amp; Practice, 5</i>(1), 7–74.</li>
+    <li>Jay, T., Willis, B., Thomas, P., Taylor, R., Moore, N., Burnett, C., Merchant, G., &amp; Stevens, A. (2017). <i>Dialogic Teaching: Evaluation Report and Executive Summary</i>. Education Endowment Foundation (EEF).</li>
+    <li>McNeill, K. L., &amp; Krajcik, J. (2012). <i>Supporting Grade 5–8 Students in Constructing Explanations in Science: The Claim, Evidence, and Reasoning Framework for Talk and Writing</i>. Pearson.</li>
+    <li>OECD (2023). <i>PISA 2022 Results (Volume I): The State of Learning and Equity in Education</i>. OECD Publishing.</li>
+    <li>OECD (2025). <i>Unlocking High-Quality Teaching: Fostering Classroom Interaction</i>.</li>
+    <li>Rosenshine, B. (2012). Principles of Instruction: Research-Based Strategies That All Teachers Should Know. <i>American Educator, 36</i>(1), 12–19.</li>
+    <li>Rowe, M. B. (1986). Wait Time: Slowing Down May Be a Way of Speeding Up! <i>Journal of Teacher Education, 37</i>(1), 43–50.</li>
+    <li>Toulmin, S. E. (2003). <i>The Uses of Argument</i> (Updated ed.). Cambridge University Press.</li>
+    <li>Vygotsky, L. S. (1978). <i>Mind in Society: The Development of Higher Psychological Processes</i>. Harvard University Press.</li>
+    <li>Wiliam, D. (2011). <i>Embedded Formative Assessment</i>. Solution Tree Press.</li>
+  </ol>
+</section>
+
+<!-- ============ PROGRESS ============ -->
+<section class="page" id="p-progress">
+  <h1>ئەنجامی من</h1>
+  <p>ئەم لاپەڕەیە ئەنجامەکانت و مەرجەکانی تەواوکردنی کۆرس پیشان دەدات. زانیارییەکان تەنها لەم ئامێرە و ئەم وێبگەڕەدا دەپارێزرێن.</p>
+  <div id="prog"></div>
+</section>
+</main>
+</div>
+</div>
+<script>
+(function(){
+'use strict';
+
+/* ---------- state (per-viewer, optional) ---------- */
+var KEY='ped101-v1';
+var S={v:{},sc:{},dr:{}};
+try{var raw=localStorage.getItem(KEY);if(raw){var pp=JSON.parse(raw);if(pp&&typeof pp==='object'){S.v=pp.v||{};S.sc=pp.sc||{};S.dr=pp.dr||{};}}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+
+/* ---------- helpers ---------- */
+function fa(n){return String(n).replace(/\d/g,function(d){return '٠١٢٣٤٥٦٧٨٩'.charAt(+d);});}
+function $(s,r){return (r||document).querySelector(s);}
+function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));}
+function h(tag,attrs){
+  var e=document.createElement(tag);
+  if(attrs){Object.keys(attrs).forEach(function(k){e.setAttribute(k,attrs[k]);});}
+  for(var i=2;i<arguments.length;i++){
+    var c=arguments[i];
+    if(c==null||c===false)continue;
+    if(Array.isArray(c)){c.forEach(function(x){if(x!=null)e.append(x.nodeType?x:document.createTextNode(x));});}
+    else e.append(c.nodeType?c:document.createTextNode(c));
+  }
+  return e;
+}
+
+/* ---------- pages ---------- */
+var PAGES=[
+  {id:'home',t:'سەرەتا',s:'سەرەتا',g:'دەستپێک'},
+  {id:'intro',t:'پێشەکی و ئامانجەکان',s:'پێشەکی',g:'دەستپێک'},
+  {id:'pretest',t:'تاقیکردنەوەی پێشوەختە',s:'تاقیکردنەوەی پێشوەختە',g:'دەستپێک'},
+  {id:'m1',t:'مۆدیوڵی ١: پێناسە، بنەماکان و جۆرەکانی پرسیار',s:'مۆدیوڵی ١',g:'مۆدیوڵەکان'},
+  {id:'m2',t:'مۆدیوڵی ٢: گفتوگۆی بەڵگەدار و ڕۆڵی قوتابی',s:'مۆدیوڵی ٢',g:'مۆدیوڵەکان'},
+  {id:'m3',t:'مۆدیوڵی ٣: ڕۆڵی مامۆستا و وانەی کردەیی',s:'مۆدیوڵی ٣',g:'مۆدیوڵەکان'},
+  {id:'m4',t:'مۆدیوڵی ٤: ئاستەنگەکان، هەڵسەنگاندن و هەرێمی کوردستان',s:'مۆدیوڵی ٤',g:'مۆدیوڵەکان'},
+  {id:'wrapup',t:'کۆتایی و ئەنجامگیری',s:'کۆتایی',g:'کۆتایی'},
+  {id:'final-test',t:'تاقیکردنەوەی کۆتایی',s:'تاقیکردنەوەی کۆتایی',g:'کۆتایی'},
+  {id:'final-task',t:'ئەرکی کۆتایی',s:'ئەرکی کۆتایی',g:'کۆتایی'},
+  {id:'refs',t:'سەرچاوەکان',s:'سەرچاوەکان',g:'زیاتر'},
+  {id:'progress',t:'ئەنجامی من',s:'ئەنجامی من',g:'زیاتر'}
+];
+var COUNTED=PAGES.filter(function(p){return p.id!=='home'&&p.id!=='progress';});
+
+function isDone(id){
+  if(id==='pretest')return S.sc.pre!=null;
+  if(id==='final-test')return S.sc.fin!=null;
+  if(id==='final-task')return S.sc.task!=null;
+  if(/^m[1-4]$/.test(id))return !!S.v[id]&&S.sc[id]!=null;
+  return !!S.v[id];
+}
+function renderNav(cur){
+  var nav=$('#nav');nav.textContent='';
+  var last=null;
+  PAGES.forEach(function(p){
+    if(p.g!==last){nav.append(h('h3',{},p.g));last=p.g;}
+    var a=h('a',{href:'#'+p.id,class:(p.id!=='home'&&p.id!=='progress'&&isDone(p.id))?'done':''},h('span',{class:'st','aria-hidden':'true'}),h('span',{},p.t));
+    if(p.id===cur)a.setAttribute('aria-current','page');
+    nav.append(a);
+  });
+}
+function meter(){
+  var n=COUNTED.filter(function(p){return isDone(p.id);}).length;
+  var pct=Math.round(n*100/COUNTED.length);
+  $('#barFill').style.width=pct+'%';
+  $('#pct').textContent=fa(pct)+'٪';
+}
+var current='home';
+function refresh(){renderNav(current);meter();if(current==='progress')renderProgress();renderGain();}
+function route(){
+  var id=(location.hash||'#home').slice(1);
+  if(!PAGES.some(function(p){return p.id===id;}))id='home';
+  current=id;
+  $$('.page').forEach(function(p){p.classList.toggle('on',p.id==='p-'+id);});
+  S.v[id]=1;save();
+  document.body.classList.remove('nav-open');
+  $('#menuBtn').setAttribute('aria-expanded','false');
+  refresh();
+  window.scrollTo(0,0);
+}
+
+/* ---------- quiz engine ---------- */
+function quiz(host,key,qs,mode,msgFn){
+  var L=['A','B','C','D'],ans,done,cnt,submitBtn,card;
+  function qEl(i){return host.querySelector('[data-qi="'+i+'"]');}
+  function upd(){
+    var n=ans.filter(function(a){return a>=0;}).length;
+    cnt.textContent=fa(n)+' لە '+fa(qs.length)+' وەڵامدراوە';
+    submitBtn.disabled=n<qs.length;
+  }
+  function reveal(i){
+    var el=qEl(i),q=qs[i];
+    $$('.opt',el).forEach(function(b,j){
+      b.classList.remove('sel');
+      if(j===q.a)b.classList.add('ok');else if(j===ans[i])b.classList.add('no');
+      b.disabled=true;
+    });
+    var ex=$('.exp',el);ex.hidden=false;ex.textContent='';
+    ex.append(h('strong',{},ans[i]===q.a?'ڕاستە. ':'هەڵەیە. '),'کلیل: '+L[q.a]+' — '+q.e);
+  }
+  function finish(){
+    if(done)return;
+    if(mode==='exam'){
+      if(ans.some(function(a){return a<0;}))return;
+      qs.forEach(function(q,i){reveal(i);});
+      submitBtn.disabled=true;
+    }
+    done=true;
+    var sc=ans.reduce(function(s,a,i){return s+(a===qs[i].a?1:0);},0);
+    S.sc[key]=sc;save();
+    var r=msgFn(sc,qs.length);
+    card.textContent='';
+    var retry=h('button',{type:'button',class:'btn ghost'},'دووبارە هەوڵ بدەرەوە');
+    retry.addEventListener('click',function(){build();host.scrollIntoView({block:'start'});});
+    card.append(h('div',{class:'score '+r.cls},h('div',{class:'big'},'ئەنجام: '+fa(sc)+' لە '+fa(qs.length)),h('p',{},r.text),h('div',{class:'row'},retry)));
+    refresh();
+    card.scrollIntoView({block:'nearest',behavior:'smooth'});
+  }
+  function pick(i,j){
+    if(done)return;
+    if(mode==='instant'){
+      if(ans[i]>=0)return;
+      ans[i]=j;reveal(i);
+      if(ans.every(function(a){return a>=0;}))finish();
+    }else{
+      ans[i]=j;
+      $$('.opt',qEl(i)).forEach(function(b,k){b.classList.toggle('sel',k===j);});
+      upd();
+    }
+  }
+  function build(){
+    host.textContent='';
+    ans=qs.map(function(){return -1;});done=false;
+    if(S.sc[key]!=null)host.append(h('p',{class:'prev'},'دوایین ئەنجامت: '+fa(S.sc[key])+' لە '+fa(qs.length)+'. دەتوانیت دووبارە هەوڵ بدەیتەوە.'));
+    var wrap=h('div',{class:'quiz'});
+    qs.forEach(function(q,i){
+      var opts=h('div',{class:'opts',role:'group','aria-label':'بژاردەکانی پرسیاری '+fa(i+1)});
+      q.o.forEach(function(t,j){
+        var b=h('button',{type:'button',class:'opt'},h('span',{class:'ol',dir:'ltr'},L[j]),h('span',{class:'ot'},t));
+        b.addEventListener('click',function(){pick(i,j);});
+        opts.append(b);
+      });
+      var ex=h('div',{class:'exp',hidden:''});
+      wrap.append(h('div',{class:'q','data-qi':String(i)},h('div',{class:'qt'},h('span',{class:'qn'},fa(i+1)),h('div',{class:'qx'},q.q)),opts,ex));
+    });
+    host.append(wrap);
+    if(mode==='exam'){
+      cnt=h('span',{class:'cnt'});
+      submitBtn=h('button',{type:'button',class:'btn'},'ئەنجامەکان پیشان بدە');
+      submitBtn.addEventListener('click',finish);
+      host.append(h('div',{class:'qbar'},submitBtn,cnt));
+      upd();
+    }
+    card=h('div',{'aria-live':'polite'});
+    host.append(card);
+  }
+  build();
+}
+
+/* ---------- quiz data ---------- */
+var PRE=[
+ {q:'کام لەم پرسیارانە پرسیاری کراوەیە؟',o:['ئەگەر ئاو لە شارەکەماندا کەم ببێتەوە، چ گۆڕانکارییەک لە ژیانی ڕۆژانەدا ڕوودەدات و بۆچی؟','کام لەم دوو شارە پایتەختی هەرێمە: هەولێر یان دهۆک؟','ئاو لە چەند پلەیەکدا دەکوڵێت؟ وەڵامەکەت بنووسە.','ناوی سێ وەرزی ساڵ بنووسە.'],a:0,e:'پرسیاری کراوەیە چونکە چەند وەڵامی گونجاو و هۆکار دەخوازێت؛ B و C و D هەریەکەیان وەڵامێکی کورتی دیاریکراویان هەیە.'},
+ {q:'مامۆستایەک ئەم سێ پرسیارە دەکات: «ئاو لە چ پلەیەکدا دەبێتە بەفر؟»، «ڕەنگی ئاو چییە؟»، «چەند ڕووبار لە ناوچەکەدا هەیە؟». کێشەی سەرەکیی ئەم پرسیارانە چییە؟',o:['زۆر ئاسانن بۆ ئاستی قوتابیان','هەموویان وەڵامێکی کورتی دیاریکراویان هەیە و بیرکردنەوە ناخوازن','هەموویان پەیوەندییان بە ژینگەوە هەیە','قوتابیان کاتی زیاتریان دەوێت بۆ نووسین'],a:1,e:'هەرسێ پرسیارەکە یادکردنەوە دەپشکنن و بوار بۆ شیکردنەوە یان هۆکار ناکەنەوە.'},
+ {q:'قوتابییەک دەڵێت: «پێم وایە کارگە لە نزیک شار باشە». کام وەڵامی مامۆستا گفتوگۆی بەڵگەدار زیاتر پێش دەخات؟',o:['«زۆر باش، با قوتابییەکی تر قسە بکات.»','«ڕاستە، هەمووان هاوڕاین.»','«بۆچی وا بیر دەکەیتەوە؟ چ نموونە یان بەڵگەیەکت هەیە؟»','«هەڵەیە، کارگە هەوا پیس دەکات.»'],a:2,e:'داواکردنی هۆکار و بەڵگە گفتوگۆ بەرەو بەڵگەهێنانەوە دەبات. A و B هیچ بەڵگەیەک ناخوازن و D بۆچوونەکە بێ بەڵگە ڕەت دەکاتەوە.'},
+ {q:'مامۆستا پرسیارێکی کراوە دەکات. کام ڕەفتار زۆرترین دەرفەت بۆ بیرکردنەوەی هەموو قوتابیان دەڕەخسێنێت؟',o:['یەکسەر یەکەم قوتابی دەست بەرزکراو وەڵام بداتەوە','خۆی وەڵامەکە بڵێت ئەگەر پۆل بێدەنگ بوو','پرسیارەکە بگۆڕێت بۆ پرسیاری «بەڵێ/نەخێر»','چەند چرکەیەک چاوەڕێ بکات و ڕێگە بدات لەگەڵ هاوڕێیەک بیر بکەنەوە'],a:3,e:'کاتی بیرکردنەوە و گفتوگۆی دووانە دەرفەت بۆ هەمووان دەڕەخسێنێت؛ A تەنها قوتابییە خێراکان بەشدار دەکات.'},
+ {q:'لە پۆلێکدا قوتابیان بۆچوونی خۆیان دەڵێن، بەڵام هیچ هۆکارێک یان نموونەیەک نایەننەوە. ئەم گفتوگۆیە چۆنە؟',o:['گفتوگۆی بەڵگەدارە چونکە هەمووان بەشدارن','هێشتا بەڵگەدار نییە چونکە بۆچوونەکان بە هۆکار و بەڵگە پشتگیری نەکراون','گفتوگۆی بەڵگەدارە چونکە بۆچوونەکان جیاوازن','گفتوگۆ نییە چونکە مامۆستا قسە ناکات'],a:1,e:'بۆچوون بەبێ هۆکار و بەڵگە هێشتا گفتوگۆی بەڵگەدار نییە، تەنانەت ئەگەر هەمووان بەشدار بن.'},
+ {q:'کام پرسیار ئاستی بیرکردنەوەی بەرزتر دەخوازێت؟',o:['ناوی سێ ڕووبار بنووسە.','ڕووباری دجلە لە کوێوە دەست پێدەکات؟','کام لە دوو چارەسەرەکە بۆ کەمکردنەوەی پیسبوونی هەوا گونجاوترە و بۆچی؟','پیسبوونی هەوا چییە؟'],a:2,e:'بەراوردکردن و هەڵسەنگاندنی دوو چارەسەر و پاساوهێنانەوە ئاستی بیرکردنەوەی بەرزترە؛ A و B و D یادکردنەوەن.'},
+ {q:'دوو قوتابی لەسەر سوودی ئینتەرنێت بۆ خوێندن مشتومڕ دەکەن و یەکێکیان بە تووڕەیی قسەی ئەوی تر دەبڕێت. یەکەم هەنگاوی گونجاوی مامۆستا چییە؟',o:['ڕێساکانی پۆل بیر بخاتەوە و داوا لە هەردووکیان بکات بەڵگە بهێنن','قوتابییە تووڕەکە لە پۆل دەربکات','گفتوگۆکە ڕابگرێت و وانەکە بەبێ گفتوگۆ بەردەوام بێت','لایەنی ئەو قوتابییە بگرێت کە لەگەڵیدا هاوڕایە'],a:0,e:'گەڕاندنەوەی ڕێساکان و ئاراستەکردنی ناکۆکییەکە بۆ بەڵگە، ئاسایشی دەروونی دەپارێزێت و گفتوگۆ زیندوو دەهێڵێتەوە.'},
+ {q:'مامۆستایەک گفتوگۆیەکی پۆلی ئەنجام داوە. کام نیشانە باشترین بەڵگەیە کە گفتوگۆکە سەرکەوتوو بووە؟',o:['گفتوگۆکە ٣٠ خولەک بەردەوام بووە','مامۆستا پرسیاری زۆری کردووە','هەموو قوتابیان بێ هیچ ناکۆکییەک هاوڕا بوون','قوتابیان بۆچوونیان بە بەڵگە پشتگیری کرد و گوێیان لە یەکتر گرت'],a:3,e:'سەرکەوتنی گفتوگۆ بە کوالیتیی بیرکردنەوە و گوێگرتن دەپێورێت، نەک بە درێژیی کات، ژمارەی پرسیار یان هاوڕایی.'},
+ {q:'قوتابییەک دەڵێت: «هەموو شتێکی قورس نقوم دەبێت». کام وەڵامی مامۆستا باشترینە؟',o:['«هەڵەیت، پەیوەندی بە چڕییەوە هەیە.»','«با بچینە سەر پرسیاری دواتر.»','«با پارچە تەختەیەکی گەورە و بزمارێکی بچووک بخەینە ناو ئاوەوە و بزانین چی ڕوودەدات.»','«ئەمە لە کتێبەکەدا ڕوونکراوەتەوە، بیخوێنەوە.»'],a:2,e:'ئەزموونێکی کورت ناکۆکییەکی زانستی دروست دەکات و قوتابی خۆی بۆچوونەکەی هەڵدەسەنگێنێت؛ A هەڵەکە ڕاستەوخۆ ڕەت دەکاتەوە بێ تێگەیشتن.'},
+ {q:'بۆچی بەکارهێنانی تەنها پرسیاری داخراو لە هەموو وانەکان کێشەیە؟',o:['چونکە وەڵامەکان دووبارە دەبنەوە','چونکە تەنها یادەوەری دەپشکنێت و نابینێت قوتابی چۆن بیر دەکاتەوە','چونکە کاتی وانە زیاتر دەبات','چونکە قوتابیان لێی نابەشدار دەبن'],a:1,e:'پرسیاری داخراوی بەردەوام تەنها زانیاری دەپشکنێت و بیرکردنەوە، هۆکار و تێگەیشتنی قوتابی ناناسێت.'}
+];
+var M1=[
+ {q:'پرسیاری «کام لەم دوو چارەسەرە گونجاوترە و بۆچی؟» لە کام جۆری پرسیارە؟',o:['ڕوونکردنەوە','هەڵسەنگاندن','یادکردنەوە','پۆلێنکردنی ناوەکان'],a:1,e:'داوای بەراوردکردن و بڕیاردان بە هۆکار دەکات، ئەمەش هەڵسەنگاندنە.'},
+ {q:'کام بنەما دەڵێت فێربوون لە ڕێگەی گفتوگۆ و زمانەوە دروست دەبێت و پێویستی بە پشتگیریی مامۆستا هەیە؟',o:['هەرەمی بلۆم','هەڵسەنگاندنی شێوەڕێژ','فێربوونی لەبەرکردن','ڕوانگەی کۆمەڵایەتی-کولتووری (ڤیگۆتسکی)'],a:3,e:'ڤیگۆتسکی گرنگی پەیوەندیی کۆمەڵایەتی و زمان لە گەشەی بیرکردنەوەدا دەخاتە ڕوو.'},
+ {q:'مامۆستا لە وەڵامی قوتابی تێدەگات کە کێش و چڕی تێکەڵ دەکات و پرسیاری بەدواداچوون دەکات. ئەمە نموونەی چییە؟',o:['هەڵسەنگاندنی شێوەڕێژ','هەڵسەنگاندنی کۆتایی','سزادانی قوتابی','پۆلێنکردنی قوتابیان'],a:0,e:'هەڵسەنگاندنی شێوەڕێژ لە کاتی وانەدا دەزانێت قوتابی چۆن بیر دەکاتەوە و هەنگاوی دواتر دیاری دەکات.'}
+];
+var M2=[
+ {q:'لە مۆدێلی CER، «هۆکار» (Reasoning) چییە؟',o:['ئەو ڕاستییەی لە تاقیکردنەوەدا بینراوە','بۆچوونی قوتابی','ڕوونکردنەوەی ئەوەی بۆچی ئەو بەڵگەیە بۆچوونەکە پشتڕاست دەکاتەوە','ڕەنگی نووسین'],a:2,e:'هۆکار بەڵگەکە بە بۆچوونەکەوە دەبەستێتەوە.'},
+ {q:'کام ڕێسا لە پۆلی گفتوگۆی بەڵگەداردا دروستە؟',o:['ناکۆکی بە ڕێزەوە دەربڕدرێت و بە بەڵگە پشتڕاست بکرێتەوە','هەرکەس بتوانێت قسەی کەسی تر ببڕێت','تەنها بۆچوونی مامۆستا دروستە','بێدەنگی ناکۆکی نییە'],a:0,e:'ڕێساکانی ٢.٢ ڕێز، بەڵگە و ئامادەیی بۆ گۆڕینی بۆچوون دەخوازن.'},
+ {q:'بەپێی Toulmin، «بەرپەرچدانەوە» (Rebuttal) چییە؟',o:['دووبارەکردنەوەی بۆچوون','باسکردنی ئەگەر یان مەرجێک کە بۆچوونەکە لاواز دەکات و وەڵامدانەوەی','ڕەنگکردنی پێکهاتەکە','نووسینی ناونیشان'],a:1,e:'بەرپەرچدانەوە بۆچوونەکە لەگەڵ ئەگەرە بەرانبەرەکان تاقی دەکاتەوە.'}
+];
+var M3=[
+ {q:'کام ڕیزبەندی یەکەم هەنگاوەکانی جێبەجێکردن دروستە؟',o:['ئەنجامگیری، پرسیار، ئامانج','پرسیاری بەدواداچوون، ئامانج، پرسیار','پرسیار، ئامانج، کاتی بیرکردنەوە','ئامانجی فێربوون، ئامادەکردنی پرسیار، پێشکەشکردن لەگەڵ کاتی بیرکردنەوە'],a:3,e:'ئامانج یەکەمە، پاشان پرسیار، پاشان پێشکەشکردن و کاتی بیرکردنەوە.'},
+ {q:'لە نموونەی وانەی ٤٠ خولەکی «ئاو»دا کام قۆناغ زۆرترین کاتی پێدراوە؟',o:['دەستپێکردن','بیرکردنەوەی تاکەکەسی','گفتوگۆی هاوبەشی پۆل','هەڵسەنگاندن و کۆتایی'],a:2,e:'گفتوگۆی هاوبەشی پۆل ١٥ خولەکە؛ دەستپێکردن، بیرکردنەوەی تاکەکەسی و هەڵسەنگاندن هەریەکەیان ٥ خولەکن.'},
+ {q:'بۆچی مامۆستا نابێت پێش وەرگرتنی چەند بۆچوونێک وەڵامەکان بە «ڕاستە/هەڵەیە» هەڵبسەنگێنێت؟',o:['چونکە قوتابیان لەوانەیە لە بەشداری بترسن و فێر ببن تەنها وەڵامی چاوەڕوانکراو بدۆزنەوە','چونکە کات دەبات','چونکە ڕاستی گرنگ نییە','چونکە قوتابیان ئەمە ناخوازن'],a:0,e:'بڕوانە ٢.٣: هەڵسەنگاندنی خێرا بەشداریی ئازاد کەم دەکاتەوە.'}
+];
+var M4=[
+ {q:'لە پۆلێکی قەرەباڵغدا کام شێواز بۆ بەشداریی زۆرینە باشترە؟',o:['تەنها ئەو قوتابیانە بدوێنێت کە دەست بەرز دەکەنەوە','Think–Pair–Share و گرووپی بچووک','خۆی هەموو وەڵامەکان بدات','پرسیارەکان بەتەواوی لابدات'],a:1,e:'Think–Pair–Share و گرووپی بچووک دەرفەتی بەشداری بۆ هەمووان دەڕەخسێنن.'},
+ {q:'کام یەک لەمانە هەڵەی باوی جێبەجێکردنە؟',o:['پرسیاری ئامانجدار','کاتی بیرکردنەوە','پرسیاری بەدواداچوون','پرسیاری زۆر گشتی وەک «دەربارەی ژینگە چی دەزانن؟» بێ ئامانج'],a:3,e:'پرسیاری زۆر گشتی قوتابی دەخاتە سەرلێشێواوی (٤.١).'},
+ {q:'ئەنجامی ڕاپۆرتی EEF لەسەر Dialogic Teaching چۆن لێک بدرێتەوە؟',o:['بەڵێنێکی گشتی بۆ هەموو قوتابخانەکان','تەنها لە ئینگلیزی کاریگەرە','پشتگیرییەکی گرنگە بەڵام بەڵێنی گشتی بۆ هەموو بارودۆخێک نییە','هیچ بەهایەکی نییە'],a:2,e:'وەک لە ٤.٦ هاتووە، ئەنجامەکە گرنگە بەڵام ناگشتێنرێت بۆ هەموو قوتابخانە و هەموو شێوازێکی گفتوگۆ.'}
+];
+var FIN=[
+ {q:'پرسیارێکی داخراو: «کام ئەندامی جەستە خوێن دەخاتە گەڕ؟». کام گۆڕانکاری دەیکاتە پرسیاری کراوەی دروست؟',o:['«دڵ لای چەپە یان ڕاست؟»','«ناوی ئەندامەکانی جەستە بنووسە.»','«ئەگەر دڵ بۆ چەند خولەکێک بوەستێت، چی بەسەر ئەندامەکانی تردا دێت و بۆچی؟»','«دڵ چەند خانەی هەیە؟»'],a:2,e:'پرسیارەکە ئەگەر، شیکردنەوە و هۆکار دەخوازێت. A و B و D هێشتا وەڵامی دیاریکراویان هەیە.'},
+ {q:'لە مۆدێلی CER، کام وەڵام هەرسێ پێکهاتەی بۆچوون، بەڵگە و هۆکاری تێدایە؟',o:['«بۆچوونم ئەوەیە پارچە تەختەکە لەسەر ئاو دەمێنێتەوە؛ چونکە لە تاقیکردنەوەکەماندا نقوم نەبوو؛ ئەمەش لەبەر ئەوەیە چڕی تەختە لە ئاو کەمترە.»','«پێم وایە تەختەکە لەسەر ئاو دەمێنێتەوە چونکە سووکە.»','«تەختەکە لەسەر ئاو مایەوە، هەمووان بینیمان.»','«تەختە و ئاو دوو شتی جیاوازن، بۆیە دەبێت لەسەر ئاو بمێنێتەوە.»'],a:0,e:'تەنها A بۆچوون، بەڵگەی تێبینیکراو و هۆکار (چڕی) پێکەوە دەهێنێت. B هۆکارێکی هەڵە/لاواز هەیە، C بەڵگەی تەنهایە و D بێ بەڵگەیە.'},
+ {q:'کام پرسیاری بەدواداچوون ڕاستەوخۆ داوای بەڵگە دەکات؟',o:['«کێ لەگەڵ ئەم بۆچوونەدایە؟»','«ئایا دەتەوێت بۆچوونەکەت بگۆڕیت؟»','«ئایا وەڵامەکەت تەواوە؟»','«چ بەڵگە یان ئەزموونێکت هەیە کە ئەم بۆچوونەت پشتڕاست بکاتەوە؟»'],a:3,e:'A بەشداری فراوان دەکات، B و C بۆ پێداچوونەوەن؛ تەنها D بەڵگە دەخوازێت.'},
+ {q:'پۆلێک ٤٢ قوتابی هەیە و وانەکە ٤٠ خولەکە. کام پلان گونجاوترە بۆ گفتوگۆی کراوە؟',o:['هەر قوتابییەک بە نۆرە یەک خولەک قسە بکات','بیرکردنەوەی تاکەکەسی، پاشان گفتوگۆی گرووپی بچووک، پاشان پێشکەشکردنی نوێنەری گرووپەکان','تەنها سێ قوتابی هەڵبژێرێت بۆ قسەکردن','گفتوگۆکە بۆ وانەیەکی دیکە دوابخات'],a:1,e:'پلانی B هەموو پۆلەکە بەشدار دەکات و لە ٤٠ خولەکدا دەگونجێت. A زیاتر لە ٤٠ خولەک دەخایەنێت (٤٢ قوتابی × ١ خولەک).'},
+ {q:'قوتابییەک بۆچوونێک دەخاتەڕوو کە لەگەڵ بۆچوونی مامۆستا ناکۆکە، بەڵام بە دوو بەڵگەی بەهێز پشتگیری دەکات. مامۆستا چۆن هەڵیدەسەنگێنێت؟',o:['بە باشی هەڵیدەسەنگێنێت چونکە هۆکار و بەڵگەی هەیە','نمرەی کەم دەدات چونکە ناکۆکە لەگەڵ مامۆستا','نمرە نادات چونکە بۆچوون دەربڕین ئامانجی وانەکە نییە','تەنها ئەگەر هاوپۆلەکانی هاوڕا بن نمرە دەدات'],a:0,e:'هەڵسەنگاندن لەسەر کوالیتیی هۆکار و بەڵگەیە، نەک هاوڕایی لەگەڵ مامۆستا یان هاوپۆلەکان.'},
+ {q:'مامۆستایەک هەشت پرسیاری ئامادە کردووە و هەموویان «بەڵێ/نەخێر»ن. باشترین چاککردنەوە چییە؟',o:['ژمارەی پرسیارەکان بکات بە ١٠','کاتی وانەکە درێژتر بکات','هەمان پرسیارەکان بە شێوەیەکی تر بنووسێتەوە','لانیکەم سێ دانەیان بگۆڕێت بۆ پرسیاری هۆکار، بەراورد و پێشبینی'],a:3,e:'گۆڕینی جۆری پرسیارەکان ئاستی بیرکردنەوە بەرز دەکاتەوە؛ زیادکردنی ژمارە یان کات کێشەکە چارەسەر ناکات.'},
+ {q:'مامۆستا پرسیار دەکات و دوای نزیکەی یەک چرکە خۆی وەڵام دەداتەوە. کام گۆڕانکاری لە ڕاهێنانی کاتی بیرکردنەوە باشترە؟',o:['پرسیارەکان خێراتر بکات','تەنها قوتابییە بەهێزەکان بدوێنێت','چەند چرکەیەک چاوەڕێ بکات یان بۆ ماوەیەکی کورت لەگەڵ هاوڕێیەک بیر بکەنەوە','وەڵامی ڕاست لەسەر تەختە بنووسێت'],a:2,e:'چەند چرکەیەکی زیاتر و گفتوگۆی دووانە دەرفەت بۆ بیرکردنەوەی هەموو قوتابیان دەڕەخسێنێت (بڕوانە Rowe, 1986).'},
+ {q:'کام پرسیار نموونەی پرسیاری «پێشبینی»یە؟',o:['«بۆچی ئاو دەکوڵێت؟»','«ئەگەر ئەمساڵ باران نەبارێت، چی بەسەر کشتوکاڵی ناوچەکەدا دێت؟»','«کام لەم دوو جۆرە ئاوە باشترە؟»','«ئاو چ ڕەنگێکی هەیە؟»'],a:1,e:'پرسیاری «ئەگەر ... چی ڕوودەدات؟» پێشبینی دەخوازێت. A هۆکارە، C هەڵسەنگاندنە و D یادکردنەوەیە.'},
+ {q:'قوتابییەک بیرۆکەیەکی باشی هەیە بەڵام زمانەکان تێکەڵ دەکات. باشترین کردار چییە؟',o:['داوای لێ بکات تەنها بە زمانی وانەکە قسە بکات یان بێدەنگ بێت','پێی بڵێت ئەمە دەرفەت نییە بۆ پێکەنین','بیرۆکەکەی نوێ بکاتەوە و خۆی بیڵێت','با بە زمانی بەهێزتری خۆی ڕوونی بکاتەوە، پاشان یارمەتی بدات بیگوازێتەوە بۆ زمانی وانەکە'],a:3,e:'بیرکردنەوەکەی دەپارێزرێت و بە ڕێزەوە دەگوازرێتەوە بۆ زمانی وانەکە؛ A متمانە دەشکێنێت.'},
+ {q:'مامۆستایەک پرسیاری بەدواداچوونی باش بەکاردەهێنێت، بەڵام لە ٣٥ قوتابی تەنها ٥ دانە بەشدارن. کام هەڵسەنگاندن بۆ پێوەرەکانی ٤.٣ دروستترە؟',o:['پرسیاری بەدواداچوون: باش یان زۆر باش؛ بەشداریی قوتابیان: پێویستی بە پەرەپێدان','هەردوو پێوەر: زۆر باش','هەردوو پێوەر: پێویستی بە پەرەپێدان','پێوەرەکان ناکرێت پێکەوە هەڵبسەنگێن']
+ ,a:0,e:'هەر پێوەرێک بە جیا هەڵدەسەنگێنرێت: پرسیاری بەدواداچوون باشە بەڵام بەشداریی قوتابیان زۆر سنووردارە.'}
+];
+
+function modMsg(sc){
+  return sc>=2?{cls:'pass',text:'مەرجی ئەم مۆدیوڵەت جێبەجێ کرد (لانیکەم ٢ لە ٣).'}:{cls:'fail',text:'پێویستە لانیکەم ٢ لە ٣ بهێنیت. بەشی مۆدیوڵەکە دووبارە بخوێنەوە و هەوڵ بدەرەوە.'};
+}
+quiz($('#quiz-pre'),'pre',PRE,'exam',function(){return {cls:'',text:'ئەمە خاڵی دەستپێکی تۆیە. دوای تەواوکردنی کۆرس، تاقیکردنەوەی کۆتایی بکە و بە ئەنجامی ئێستات بەراوردی بکە.'};});
+quiz($('#quiz-m1'),'m1',M1,'instant',modMsg);
+quiz($('#quiz-m2'),'m2',M2,'instant',modMsg);
+quiz($('#quiz-m3'),'m3',M3,'instant',modMsg);
+quiz($('#quiz-m4'),'m4',M4,'instant',modMsg);
+quiz($('#quiz-fin'),'fin',FIN,'exam',function(sc){
+  return sc>=7?{cls:'pass',text:'ئاستی تێپەڕینت (٧ لە ١٠) تێپەڕاند.'}:{cls:'fail',text:'ئاستی تێپەڕین ٧ لە ١٠ـە. مۆدیوڵەکان پێداچوونەوەیان بۆ بکە و دووبارە هەوڵ بدەرەوە.'};
+});
+
+function gainLine(){
+  if(S.sc.pre==null||S.sc.fin==null)return null;
+  var d=S.sc.fin-S.sc.pre;
+  return {d:d,text:'پێشوەختە: '+fa(S.sc.pre)+' لە ١٠ • کۆتایی: '+fa(S.sc.fin)+' لە ١٠ • پێشکەوتن: '+(d>0?'+':d<0?'−':'')+fa(Math.abs(d))};
+}
+function renderGain(){
+  var host=$('#fin-gain');if(!host)return;
+  host.textContent='';
+  var g=gainLine();
+  if(g)host.append(h('div',{class:'note'},h('span',{class:'nt'},'بەراوردکردن لەگەڵ تاقیکردنەوەی پێشوەختە'),h('span',{},g.text)));
+}
+
+/* ---------- simulations ---------- */
+function sim(host,d){
+  host.className='sim';
+  var chosen=-1,reasonEl,go;
+  var head=h('div',{class:'sim-h'},h('span',{class:'badge'},'هاوشێوەکردن'),h('strong',{},d.title));
+  var body=h('div',{class:'sim-b'});
+  host.append(head,body);
+  function start(){
+    chosen=-1;body.textContent='';
+    body.append(h('p',{},h('strong',{},'دۆخی پۆل: '),d.situation));
+    var dlg=h('div',{class:'dlg'});
+    d.scene.forEach(function(m){dlg.append(h('div',{class:'msg '+m.w},h('span',{class:'who'},m.who),m.text));});
+    body.append(dlg);
+    body.append(h('p',{},h('strong',{},'خاڵی بڕیاردان: '),d.point));
+    body.append(h('p',{class:'hint'},'بژاردەیەک هەڵبژێرە و هۆکارەکەی بنووسە، پاشان دەرەنجام و هەڵسەنگاندن ببینە.'));
+    var opts=h('div',{class:'opts',role:'group','aria-label':'بژاردەکان'});
+    d.opts.forEach(function(o,j){
+      var b=h('button',{type:'button',class:'opt'},h('span',{class:'ol',dir:'ltr'},'ABC'.charAt(j)),h('span',{class:'ot'},o.t));
+      b.addEventListener('click',function(){
+        chosen=j;
+        $$('.opt',opts).forEach(function(x,k){x.classList.toggle('sel',k===j);});
+        go.disabled=false;
+      });
+      opts.append(b);
+    });
+    body.append(opts);
+    var rid='sim-'+d.id+'-reason';
+    reasonEl=h('textarea',{id:rid,placeholder:'بۆچی ئەم بژاردەیەت هەڵبژارد؟'});
+    body.append(h('div',{class:'fld'},h('label',{for:rid},'هۆکارەکەی من'),reasonEl));
+    go=h('button',{type:'button',class:'btn',disabled:''},'دەرەنجام و هەڵسەنگاندن ببینە');
+    go.addEventListener('click',showRes);
+    body.append(h('div',{class:'row'},go));
+  }
+  function showRes(){
+    if(chosen<0)return;
+    var reason=reasonEl.value.trim();
+    body.textContent='';
+    var good=d.opts[chosen].ev==='best';
+    body.append(h('p',{},h('strong',{},good?'پیرۆزە، باشترین بژاردەت هەڵبژارد. ':'بژاردەکەت ئەو ئاستەی نەگەیشتووە. '),good?'ستوونی دەرەنجام بخوێنەوە و بزانە بۆچی کاریگەرە.':'ستوونی دەرەنجام بخوێنەوە و بزانە بۆچی بژاردەی «باشترین» باشترە.'));
+    if(reason)body.append(h('div',{class:'yr'},h('strong',{},'هۆکارەکەی تۆ: '),reason));
+    var res=h('div',{class:'res'});
+    d.opts.forEach(function(o,j){
+      var best=o.ev==='best';
+      res.append(h('div',{class:'rr'+(j===chosen?' me':'')},
+        h('div',{class:'oh'},h('span',{class:'ev '+(best?'best':'bad')},best?'✔ باشترین':'✖ باش نییە'),j===chosen?h('span',{class:'mine'},'هەڵبژاردنی تۆ'):null),
+        h('div',{},h('b',{},'ABC'.charAt(j)+') '),o.t),
+        h('small',{},h('b',{},'دەرەنجام: '),o.out)));
+    });
+    body.append(res);
+    body.append(h('div',{class:'note'},h('span',{class:'nt'},'شیکردنەوەی پەروەردەیی'),h('span',{},d.an)));
+    var again=h('button',{type:'button',class:'btn ghost'},'دووبارە هەوڵ بدەرەوە');
+    again.addEventListener('click',start);
+    body.append(h('div',{class:'row'},again));
+  }
+  start();
+}
+var SIMS={
+ s1:{id:'s1',title:'پۆلی ٥، زانست: وانەی سووڕی ئاو',situation:'مامۆستا وانەی سووڕی ئاو دەڵێتەوە و دەیەوێت قوتابیان لە یادکردنەوە بگوازێتەوە بۆ شیکردنەوە.',
+  scene:[{w:'t',who:'مامۆستا',text:'ئاو لە چ پلەیەکدا دەبێتە هەڵم؟'},{w:'s',who:'قوتابی',text:'لە ١٠٠ پلەی سەدی.'},{w:'t',who:'دیمەن',text:'پۆل بێدەنگ دەبێت.'}],
+  point:'کام پرسیار ئاراستەی پۆل دەکەیت؟',
+  opts:[
+   {t:'زۆر باشە! ئەی ئاو لە چ پلەیەکدا دەیبەستێت؟',out:'تەنها زانیارییەکی دیکەی یادکردنەوە دەپشکنێت و گفتوگۆ قووڵ ناکاتەوە.',ev:'bad'},
+   {t:'ئەگەر لە ناوچەیەکی وشکدا باران نەبارێت و سەرچاوەکانی ئاو کەم ببنەوە، چ کاریگەرییەکی لەسەر مرۆڤ و ئاژەڵ و ڕووەک دەبێت؟ چ چارەسەرێک پێشنیار دەکەیت؟',out:'قوتابیان زانیارییەکانی ئاو و ژینگە بەیەکەوە دەبەستنەوە، چەند ئەگەرێک دەخەنەڕوو و بە هۆکار پشتڕاستی دەکەنەوە.',ev:'best'},
+   {t:'پێناسەی بەهەڵمبوون لە کتێبەکەوە بنووسنەوە.',out:'قوتابیان تەنها دەق دەگوازنەوە و بیرکردنەوەی چالاک نابێت.',ev:'bad'}],
+  an:'بژاردەی دووەم پرسیارەکە لە یادکردنەوە دەبات بۆ شیکردنەوە و هەڵسەنگاندن، و زیاتر لە یەک وەڵامی گونجاوی هەیە.'},
+ s2:{id:'s2',title:'پۆلی ٩، کۆمەڵایەتی: کارگە لە نزیک شار',situation:'مامۆستا پرسیاری کردووە: ئایا دروستکردنی کارگە و پڕۆژەی گەورە لە نزیک شارەکان هەمیشە سوودی بۆ کۆمەڵگە هەیە؟',
+  scene:[{w:'s',who:'قوتابی ١',text:'بەڵێ، چونکە هەلی کار دروست دەکات!'},{w:'s',who:'قوتابی ٢ (بە تووڕەیی قسەی پێ دەبڕێت)',text:'نەخێر هەڵەیە، کارگەکان هەوا پیس دەکەن!'},{w:'t',who:'دیمەن',text:'دەنگەدەنگ دروست دەبێت.'}],
+  point:'چۆن مشتومڕەکە دەگۆڕیت بۆ گفتوگۆی بەڵگەدار؟',
+  opts:[
+   {t:'بێدەنگ بن! قوتابی یەکەم ڕاست دەکات، با بابەتەکە دابخەین.',out:'گفتوگۆ دەکوژێت و لایەنگریی مامۆستا دەردەخات.',ev:'bad'},
+   {t:'ئەگەر دەنگەدەنگ بکەن، چیتر پرسیاری کراوە ناکەین.',out:'قوتابیان لە ترسان بێدەنگ دەبن و فێری بەڕێوەبردنی جیاوازیی ڕوانگە نابن.',ev:'bad'},
+   {t:'با یاساکانی پۆل بپارێزین: ڕێز لە یەکتر دەگرین و قسەی یەک نابڕین. هەردووکتان لایەنێکی گرنگتان باس کرد (ئابووری و ژینگە)؛ با هەریەکەتان بەڵگەیەک بهێنێتەوە چۆن ئەم دووانە هاوسەنگ بکرێن؟',out:'گرژییەکە هێور دەبێتەوە و ناکۆکیی زانستی لە مشتومڕی کەسی جیادەکرێتەوە.',ev:'best'}],
+  an:'بژاردەی سێیەم ڕێز لە قوتابیان دەگرێت و گفتوگۆ دەبات بەرەو بەڵگەهێنانەوە و چارەسەر.'},
+ s3:{id:'s3',title:'پۆلی ٦: چڕی و سەرئاوکەوتن',situation:'مامۆستا دوای کاتی بیرکردنەوە پرسیاری کردووە: بۆچی هەندێک شت لەسەر ئاو دەمێننەوە و هەندێکیان نقوم دەبن؟',
+  scene:[{w:'s',who:'قوتابی',text:'هەموو شتێکی قورس نقوم دەبێت!'},{w:'t',who:'دیمەن',text:'مامۆستا دەزانێت قوتابی جیاوازیی کێش و چڕی نازانێت.'}],
+  point:'چۆن هەڵە چەمکییەکە دەکەیتە دەرفەت بەبێ شەرمەزارکردن؟',
+  opts:[
+   {t:'هەڵەیت! پەیوەندی بە کێشەوە نییە، بەڵکو بە چڕییەوە هەیە.',out:'قوتابی شەرمەزار دەبێت و وشەکە لەبەر دەکات بێ تێگەیشتن.',ev:'bad'},
+   {t:'واز لە وەڵامەکەی دەهێنیت و دەچیتە سەر قوتابییەکی دیکە.',out:'هەڵە چەمکییەکە چارەسەر ناکرێت.',ev:'bad'},
+   {t:'بیرۆکەیەکی باوە! ئەگەر پارچە تەختەیەکی گەورەی قورس و بزمارێکی بچووکی سووک بخەینە ناو ئاوەوە، پێت وایە کامیان نقوم دەبێت و بۆچی؟',out:'ناکۆکییەکی زانستی دروست دەکات و قوتابی خۆی بۆچوونەکەی هەڵدەسەنگێنێت.',ev:'best'}],
+  an:'پرسیاری بەدواداچوون وا دەکات قوتابی بە بەڵگە جیاوازیی کێش و چڕی ببینێت.'},
+ s4:{id:'s4',title:'پۆلی ١٠: ٤٢ قوتابی و فرەزمان',situation:'پۆلێکی ٤٢ قوتابی لە وانەیەکی ٤٠ خولەکیدا؛ هەندێک قوتابی توانای دەربڕینی زمانی وانەکەیان سنووردارە.',
+  scene:[{w:'s',who:'قوتابی',text:'بیرۆکەیەکی باشی هەیە بەڵام زمانەکان تێکەڵ دەکات.'},{w:'t',who:'دیمەن',text:'هەندێک قوتابی پێدەکەنن.'}],
+  point:'چۆن بیرۆکەکەی دەپارێزیت و بەشداری ڕێکدەخەیت؟',
+  opts:[
+   {t:'پۆلەکە دەکەمە گرووپی بچووک بە کارتی پرسیار و کاتی دیاریکراو؛ با قوتابییەکە سەرەتا بە زمانی بەهێزتری خۆی ڕوونی بکاتەوە، پاشان بە ڕێزەوە یارمەتی دەدەم بیگوازێتەوە بۆ زمانی وانەکە.',out:'ئاسایشی دەروونی دەپارێزرێت و لە پۆلی قەرەباڵغدا زۆرینە چالاک دەبن.',ev:'best'},
+   {t:'تا بە زمانی وانەکە بە ڕێکوپێکی قسە نەکەیت، بەشدار مەبە.',out:'متمانەی قوتابی دەشکێت و بیرۆکە گرنگەکە ون دەبێت.',ev:'bad'},
+   {t:'لەبەر زۆریی قوتابیان، تەنها خۆم قسە دەکەم.',out:'فێربوونی چالاک و گفتوگۆ پەک دەکەوێت.',ev:'bad'}],
+  an:'گونجاندنی کردەیی: ئاسایشی دەروونی + ڕێکخستنی گرووپی بچووک.'}
+};
+Object.keys(SIMS).forEach(function(k){sim($('#sim-'+k),SIMS[k]);});
+
+/* ---------- classify activity ---------- */
+(function(){
+  var items=[
+   {t:'ئاو لە چ پلەیەکدا دەبێتە هەڵم؟',a:'closed'},
+   {t:'ئەگەر باران نەبارێت و سەرچاوەی ئاو کەم ببنەوە، چ چارەسەرێک پێشنیار دەکەیت؟',a:'open'},
+   {t:'ئایا زەوی بە دەوری خۆیدا دەسوڕێتەوە؟',a:'closed'},
+   {t:'ئەگەر ڕووەکەکان ڕووناکی وەرنەگرن، چییان بەسەردێت؟',a:'open'},
+   {t:'ئەگەر تۆ نووسەری چیرۆکەکە بیت، کۆتاییەکەی چۆن دەگۆڕیت؟',a:'open'},
+   {t:'ئەم ڕووداوە لە چ ساڵێکدا بوو؟',a:'closed'}
+  ];
+  var host=$('#act-classify'),got,rows;
+  function build(){
+    host.textContent='';got=0;rows=[];
+    var list=h('div',{class:'cls'}),sum=h('p',{class:'hint','aria-live':'polite'});
+    items.forEach(function(it,i){
+      var bO=h('button',{type:'button'},'کراوە'),bC=h('button',{type:'button'},'داخراو');
+      var row=h('div',{class:'cr'},h('div',{class:'ct'},fa(i+1)+'. '+it.t),h('div',{class:'tg'},bO,bC));
+      function ans(v,b){
+        if(row.dataset.done)return;
+        row.dataset.done='1';
+        b.classList.add('on');
+        var ok=v===it.a;
+        row.classList.add(ok?'ok':'no');
+        if(ok)got++;
+        bO.disabled=bC.disabled=true;
+        if(!ok)row.append(h('div',{class:'hint',style:'flex-basis:100%'},'وەڵامی دروست: '+(it.a==='open'?'کراوە':'داخراو')));
+        var n=$$('.cr',list).filter(function(r){return r.dataset.done;}).length;
+        sum.textContent=n===items.length?('ئەنجام: '+fa(got)+' لە '+fa(items.length)+' دروست بوو.'):(fa(n)+' لە '+fa(items.length)+' وەڵامدراوە.');
+        if(n===items.length){var r=h('button',{type:'button',class:'btn ghost'},'دووبارە');r.addEventListener('click',build);host.append(r);}
+      }
+      bO.addEventListener('click',function(){ans('open',bO);});
+      bC.addEventListener('click',function(){ans('closed',bC);});
+      list.append(row);
+    });
+    host.append(list,sum);
+  }
+  build();
+})();
+
+/* ---------- order activity ---------- */
+(function(){
+  var steps=['دیاریکردنی ئامانجی فێربوون','ئامادەکردنی پرسیارەکان','پێشکەشکردنی پرسیار و دانانی کاتی بیرکردنەوە','وەرگرتنی وەڵامە جیاوازەکان','قووڵکردنەوە بە پرسیاری بەدواداچوون','ڕێکخستنی گفتوگۆ و بەڕێوەبردنی جیاوازیی بۆچوون','کۆکردنەوەی بیرۆکەکان و ئەنجامگیری'];
+  var host=$('#act-order'),arr,checked;
+  function reset(){arr=[2,5,0,6,3,1,4];checked=false;draw('');}
+  function draw(msg){
+    host.textContent='';
+    var ol=h('ol',{class:'ord'});
+    arr.forEach(function(s,pos){
+      var up=h('button',{type:'button','aria-label':'بەرزکردنەوە'},'▲'),dn=h('button',{type:'button','aria-label':'دابەزاندن'},'▼');
+      up.addEventListener('click',function(){if(pos>0){var t=arr[pos];arr[pos]=arr[pos-1];arr[pos-1]=t;checked=false;draw('');}});
+      dn.addEventListener('click',function(){if(pos<arr.length-1){var t=arr[pos];arr[pos]=arr[pos+1];arr[pos+1]=t;checked=false;draw('');}});
+      var li=h('li',{class:checked?(s===pos?'ok':'no'):''},h('span',{class:'pos'},fa(pos+1)),h('span',{class:'on'},steps[s]),h('div',{class:'mv'},up,dn));
+      ol.append(li);
+    });
+    var chk=h('button',{type:'button',class:'btn'},'بپشکنە');
+    chk.addEventListener('click',function(){
+      checked=true;
+      var n=arr.filter(function(s,p){return s===p;}).length;
+      draw(n===7?'ڕاستە! هەر ٧ هەنگاوەکە بە ڕیزی دروستن.':fa(n)+' لە ٧ هەنگاو لە شوێنی دروستی خۆیاندان. بە سەوز و سوورەکان ڕێنمایی وەربگرە.');
+    });
+    var rs=h('button',{type:'button',class:'btn ghost'},'تێکەڵکردنەوە');
+    rs.addEventListener('click',reset);
+    host.append(ol,h('div',{class:'row'},chk,rs),h('p',{class:'hint','aria-live':'polite'},msg));
+  }
+  reset();
+})();
+
+/* ---------- wait-time timer ---------- */
+(function(){
+  var host=$('#act-wait');host.className='wt';
+  var msg=h('div',{class:'msgs','aria-live':'polite'},'دوگمەکە بگوشە و ببینە کاتی بیرکردنەوە چۆن دەبێت.');
+  var fill=h('i'),trk=h('div',{class:'trk'},fill);
+  var btn=h('button',{type:'button',class:'btn'},'مامۆستا پرسیار دەکات');
+  var timer=null;
+  btn.addEventListener('click',function(){
+    if(timer)return;
+    btn.disabled=true;
+    var t=0,total=3000,step=100;
+    fill.style.width='0%';
+    msg.textContent='مامۆستا: «بۆچی هەندێک شت لەسەر ئاو دەمێننەوە و هەندێکیان نقوم دەبن؟» و چاوەڕێ دەکات... ١';
+    timer=setInterval(function(){
+      t+=step;
+      fill.style.width=Math.min(100,t*100/total)+'%';
+      var sec=Math.min(3,Math.floor(t/1000)+1);
+      if(t<total)msg.textContent='مامۆستا: «بۆچی هەندێک شت لەسەر ئاو دەمێننەوە و هەندێکیان نقوم دەبن؟» و چاوەڕێ دەکات... '+fa(sec);
+      else{
+        clearInterval(timer);timer=null;btn.disabled=false;
+        msg.textContent='سێ چرکە تەواو بوو. ئێستا قوتابیان بیریان کردووەتەوە؛ با چەند چرکەیەک لەگەڵ هاوڕێیەک گفتوگۆ بکەن، پاشان قوتابییەک وەڵام بداتەوە.';
+      }
+    },step);
+  });
+  host.append(h('strong',{},'هەوڵی بکە: سێ چرکە چاوەڕێ بکە'),msg,trk,h('div',{class:'row'},btn));
+})();
+
+/* ---------- rubric ---------- */
+var LV=['پێویستی بە پەرەپێدان','لە گەشەدایە','باش','زۆر باش'];
+var RUB=[
+ {c:'ئامادەکردنی پرسیارەکان',d:['پرسیارەکان زۆرجار داخراون','هەندێک پرسیاری کراوە بەکاردەهێنێت','پرسیاری کراوەی گونجاو دادەڕێژێت','پرسیارەکان بە پلەبەندی و ئامانجدار دادەڕێژێت']},
+ {c:'پرسیاری بەدواداچوون',d:['زۆر کەم بەکاری دەهێنێت','هەندێک جار بەکاری دەهێنێت','بە شێوەیەکی گونجاو بەکاری دەهێنێت','بە وردی بیرکردنەوەی قوتابی قووڵ دەکاتەوە']},
+ {c:'بەشداریی قوتابیان',d:['تەنها کەسانی دیاریکراو بەشدارن','بەشداریی هەندێک قوتابی زیاد دەکات','زۆربەی قوتابیان بەشدار دەبن','دەرفەتی بەشداری بە شێوەی دادپەروەرانە دابەش دەکات']},
+ {c:'بەڵگەهێنانەوە',d:['داوای بەڵگە ناکات','هەندێک جار داوای بەڵگە دەکات','قوتابیان هان دەدات بەڵگە بهێننەوە','کولتووری بەڵگەهێنانەوە لە پۆلدا دروست دەکات']},
+ {c:'بەڕێوەبردنی گفتوگۆ',d:['گفتوگۆ بێ ئاراستەیە','بەشێک لە گفتوگۆ ڕێکدەخات','گفتوگۆ بە ئامانج دەبات','بیرۆکەکان بەیەکەوە دەبەستێتەوە و ئەنجامگیری دەکات']}
+];
+(function(){
+  var t=h('table',{});
+  var hr=h('tr',{},h('th',{},'پێوەر'));
+  LV.forEach(function(l,i){hr.append(h('th',{},l+' ('+fa(i+1)+')'));});
+  t.append(hr);
+  RUB.forEach(function(r){
+    var tr=h('tr',{},h('td',{},r.c));
+    r.d.forEach(function(x){tr.append(h('td',{},x));});
+    t.append(tr);
+  });
+  $('#rubric-table').append(h('div',{class:'tbl'},t));
+})();
+function rubricTotal(){
+  var tot=0,n=0;
+  for(var i=0;i<RUB.length;i++){var v=S.dr['rb'+i];if(v){tot+=+v;n++;}}
+  return {tot:tot,n:n};
+}
+(function(){
+  var host=$('#rubric-self'),out=h('div',{'aria-live':'polite'});
+  var wrap=h('div',{class:'rub'});
+  RUB.forEach(function(r,i){
+    var g=h('div',{class:'rg'},h('b',{},r.c));
+    var ro=h('div',{class:'ro'});
+    LV.forEach(function(l,k){
+      var id='rb'+i+'-'+(k+1);
+      var inp=h('input',{type:'radio',name:'rb'+i,id:id,value:String(k+1)});
+      if(String(S.dr['rb'+i])===String(k+1))inp.checked=true;
+      inp.addEventListener('change',function(){S.dr['rb'+i]=String(k+1);save();calc();});
+      ro.append(h('label',{for:id},inp,h('span',{},h('b',{},l+' ('+fa(k+1)+')'),h('br'),r.d[k])));
+    });
+    g.append(ro);wrap.append(g);
+  });
+  function calc(){
+    var r=rubricTotal();out.textContent='';
+    if(r.n<RUB.length){delete S.sc.task;save();out.append(h('p',{class:'hint'},fa(r.n)+' لە '+fa(RUB.length)+' پێوەر هەڵبژێردراوە.'));refresh();return;}
+    S.sc.task=r.tot;save();
+    var ok=r.tot>=15;
+    out.append(h('div',{class:'score '+(ok?'pass':'fail')},h('div',{class:'big'},'ئەنجام: '+fa(r.tot)+' لە ٢٠'),h('p',{},ok?'مەرجی ئەرکی کۆتایی جێبەجێ بوو (لانیکەم ١٥ لە ٢٠).':'پێویستە لانیکەم ١٥ لە ٢٠ بهێنیت. پلانەکەت باشتر بکە و دووبارە هەڵیبسەنگێنە.')));
+    refresh();
+  }
+  host.append(wrap,out);
+  calc();
+})();
+
+/* ---------- final task form ---------- */
+(function(){
+  var types=['هۆکار','بەراورد','پێشبینی','بەڵگە','هەڵسەنگاندن'];
+  var cfg=[
+   {h:'١. وانە هەڵبژێرە',f:[{id:'lesson',l:'ناوی پۆل، بابەت و لاپەڕەی پەڕتووکەکە',k:'i'}]},
+   {h:'٢. ئامانجی فێربوون',f:[{id:'goal',l:'ئامانجی وانە (بە ڕستەیەک و کردارێکی پێوانەکراو)',k:'t'}]},
+   {h:'٣. پرسیارەکان',n:'پێنج پرسیاری کراوە لە پێنج جۆری جیاواز بنووسە و بۆ هەر یەکێکیان دوو پرسیاری بەدواداچوون زیاد بکە.',f:[]},
+   {h:'٤. گفتوگۆی بەڵگەدار',n:'بۆ یەکێک لە پرسیارەکان وەڵامێکی نموونەیی قوتابی بە مۆدێلی CER بنووسە و دوو ڕستەی یارمەتیدەر لە خشتەی ٢.٥ دیاری بکە.',f:[
+     {id:'cerq',l:'پرسیارەکە',k:'i'},{id:'cerc',l:'بۆچوون (Claim)',k:'t'},{id:'cere',l:'بەڵگە (Evidence)',k:'t'},{id:'cerr',l:'هۆکار (Reasoning)',k:'t'},{id:'help1',l:'ڕستەی یارمەتیدەری یەکەم',k:'i'},{id:'help2',l:'ڕستەی یارمەتیدەری دووەم',k:'i'}]},
+   {h:'٥. پلانی ٤٠ خولەکی',n:'وەک نموونەی ٣.٣ پلانێک بنووسە و ڕوون بکەرەوە لە پۆلی قەرەباڵغ یان فرەزماندا چۆن گفتوگۆ بەڕێوە دەبەیت.',f:[{id:'plan',l:'پلانی ٤٠ خولەکی (قۆناغ، کات، چالاکی)',k:'t',big:1},{id:'crowd',l:'بەڕێوەبردنی گفتوگۆ لە پۆلی قەرەباڵغ یان فرەزماندا',k:'t'}]}
+  ];
+  types.forEach(function(ty,i){
+    cfg[2].f.push({id:'q'+i,l:'پرسیاری کراوە — جۆر: '+ty,k:'t'},{id:'q'+i+'a',l:'پرسیاری بەدواداچوونی یەکەم ('+ty+')',k:'i'},{id:'q'+i+'b',l:'پرسیاری بەدواداچوونی دووەم ('+ty+')',k:'i'});
+  });
+  var host=$('#task-form'),all=[];
+  cfg.forEach(function(sec){
+    var blk=h('div',{class:'blk'},h('h3',{},sec.h));
+    if(sec.n)blk.append(h('p',{class:'hint'},sec.n));
+    sec.f.forEach(function(f){
+      var id='t-'+f.id;
+      var el=f.k==='t'?h('textarea',{id:id,class:'ta',style:f.big?'min-height:180px':''}):h('input',{id:id,class:'inp',type:'text'});
+      el.value=S.dr[id]||'';
+      el.addEventListener('input',function(){S.dr[id]=el.value;save();});
+      all.push({el:el,l:f.l,h:sec.h});
+      blk.append(h('div',{class:'fld'},h('label',{for:id},f.l),el));
+    });
+    host.append(blk);
+  });
+  var status=h('p',{class:'hint','aria-live':'polite'}),box=h('textarea',{class:'ta',readonly:'',hidden:'','aria-label':'دەقی تەواو بۆ کۆپیکردن'});
+  var cp=h('button',{type:'button',class:'btn'},'کۆپیکردنی هەموو وەڵامەکان');
+  cp.addEventListener('click',function(){
+    var lines=['ئەرکی کۆتایی: پلانی وانەی گفتوگۆی بەڵگەدار',''],last='';
+    all.forEach(function(a){
+      if(a.h!==last){lines.push('',a.h);last=a.h;}
+      lines.push(a.l+': '+(a.el.value||'—'));
+    });
+    var r=rubricTotal();
+    if(r.n===RUB.length)lines.push('','خۆهەڵسەنگاندن: '+fa(r.tot)+' لە ٢٠');
+    var txt=lines.join('\n');
+    box.value=txt;
+    function fallback(){box.hidden=false;box.style.minHeight='200px';box.focus();box.select();status.textContent='دەقەکە لێرە دەرکەوت؛ هەڵیبژێرە و کۆپی بکە.';}
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){status.textContent='کۆپی کرا. دەتوانیت لە Word یان هەر شوێنێکی تر پەیستی بکەیت.';},fallback);}
+      else fallback();
+    }catch(e){fallback();}
+  });
+  host.append(h('div',{class:'row'},cp),status,box);
+})();
+
+/* ---------- progress ---------- */
+function renderProgress(){
+  var host=$('#prog');host.textContent='';
+  function row(label,ok,detail){
+    return h('div',{class:'pr'},h('span',{},label),h('span',{},detail?h('span',{class:'prev'},detail+' '):null,h('span',{class:'stt'+(ok?' y':'')},ok?'تەواو بوو':'ماوە')));
+  }
+  var rows=[],met=0,total=0;
+  function add(label,ok,detail){total++;if(ok)met++;rows.push(row(label,ok,detail));}
+  add('تاقیکردنەوەی پێشوەختە',S.sc.pre!=null,S.sc.pre!=null?'ئەنجام: '+fa(S.sc.pre)+' لە ١٠':'');
+  ['m1','m2','m3','m4'].forEach(function(k,i){
+    var s=S.sc[k];
+    add('تاقیکردنەوەی کورتی مۆدیوڵی '+fa(i+1)+' (لانیکەم ٢ لە ٣)',s!=null&&s>=2,s!=null?'ئەنجام: '+fa(s)+' لە ٣':'');
+  });
+  add('ئەرکی کۆتایی (لانیکەم ١٥ لە ٢٠)',S.sc.task!=null&&S.sc.task>=15,S.sc.task!=null?'ئەنجام: '+fa(S.sc.task)+' لە ٢٠':'');
+  add('تاقیکردنەوەی کۆتایی (لانیکەم ٧ لە ١٠)',S.sc.fin!=null&&S.sc.fin>=7,S.sc.fin!=null?'ئەنجام: '+fa(S.sc.fin)+' لە ١٠':'');
+  var pg=h('div',{class:'pg'});rows.forEach(function(r){pg.append(r);});
+  var all=met===total;
+  host.append(h('div',{class:'score '+(all?'pass':'')},h('div',{class:'big'},fa(met)+' لە '+fa(total)+' مەرج جێبەجێ کراوە'),h('p',{},all?'پیرۆزە! هەموو مەرجەکانی تەواوکردنی کۆرست جێبەجێ کرد.':'مەرجەکانی ماوە لە خوارەوە دیاریکراون.')));
+  host.append(pg);
+  var g=gainLine();
+  if(g)host.append(h('div',{class:'note'},h('span',{class:'nt'},'پێشکەوتن'),h('span',{},g.text)));
+  var rb=h('button',{type:'button',class:'btn ghost'},'سڕینەوەی هەموو ئەنجامەکان'),armed=false;
+  rb.addEventListener('click',function(){
+    if(!armed){armed=true;rb.textContent='دڵنیایت؟ دووبارە بگوشە بۆ سڕینەوە';return;}
+    S={v:{progress:1},sc:{},dr:{}};save();
+    try{localStorage.removeItem(KEY);}catch(e){}
+    location.reload();
+  });
+  host.append(h('div',{class:'row'},rb));
+}
+
+/* ---------- pager, nav toggle, start ---------- */
+PAGES.forEach(function(p,i){
+  var sec=$('#p-'+p.id);if(!sec)return;
+  var pv=PAGES[i-1],nx=PAGES[i+1];
+  sec.append(h('div',{class:'pager'},
+    pv?h('a',{class:'btn ghost',href:'#'+pv.id},'→ '+pv.s):h('span'),
+    nx?h('a',{class:'btn',href:'#'+nx.id},nx.s+' ←'):h('span')));
+});
+$('#menuBtn').addEventListener('click',function(){
+  var o=document.body.classList.toggle('nav-open');
+  this.setAttribute('aria-expanded',o?'true':'false');
+});
+window.addEventListener('hashchange',route);
+route();
+})();
+</script>
+
+</body></html>
